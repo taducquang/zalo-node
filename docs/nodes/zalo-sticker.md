@@ -1,38 +1,38 @@
 # Zalo Sticker Node *(MỚI)*
 
-Node Zalo Sticker cho phep ban tim kiem va quan ly sticker tren Zalo.
+Node Zalo Sticker cho phép bạn tìm kiếm và quản lý sticker trên Zalo.
 
-## Cac Thao Tac
+## Các Thao Tác
 
-### Tim Kiem Sticker (searchSticker)
-Tim kiem sticker theo tu khoa.
+### Tìm Kiếm Sticker (searchSticker)
+Tìm kiếm sticker theo từ khóa.
 
-**Tham so:**
-- `Keyword`: Tu khoa tim kiem
-- `Limit`: So luong ket qua toi da (mac dinh: 20)
+**Tham số:**
+- `Keyword`: Từ khóa tìm kiếm
+- `Limit`: Số lượng kết quả tối đa (mặc định: 20)
 
-### Lay Chi Tiet Danh Muc Sticker (getStickerCategoryDetail)
-Lay thong tin chi tiet cua mot danh muc sticker.
+### Lấy Chi Tiết Danh Mục Sticker (getStickerCategoryDetail)
+Lấy thông tin chi tiết của một danh mục sticker.
 
-**Tham so:**
-- `Category ID`: ID cua danh muc sticker
+**Tham số:**
+- `Category ID`: ID của danh mục sticker
 
-## Vi Du Su Dung
+## Ví Dụ Sử Dụng
 
-### Tim kiem sticker
+### Tìm kiếm sticker
 ```
-Keyword: xin chao
+Keyword: xin chào
 Limit: 10
 ```
 
-### Lay chi tiet danh muc
+### Lấy chi tiết danh mục
 ```
 Category ID: 123
 ```
 
-## Xu Ly Loi
+## Xử Lý Lỗi
 
-Node se xu ly cac loi pho bien sau:
-- Loi tu khoa khong hop le
-- Loi Category ID khong hop le
-- Loi ket noi mang
+Node sẽ xử lý các lỗi phổ biến sau:
+- Lỗi từ khóa không hợp lệ
+- Lỗi Category ID không hợp lệ
+- Lỗi kết nối mạng

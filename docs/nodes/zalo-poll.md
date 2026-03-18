@@ -1,49 +1,49 @@
 # Zalo Poll Node
 
-Node Zalo Poll cho phep ban quan ly binh chon (poll) trong cac nhom Zalo.
+Node Zalo Poll cho phép bạn quản lý bình chọn (poll) trong các nhóm Zalo.
 
-## Cac Thao Tac
+## Các Thao Tác
 
-### Tao Binh Chon (createPoll)
-Tao mot binh chon moi trong nhom.
+### Tạo Bình Chọn (createPoll)
+Tạo một bình chọn mới trong nhóm.
 
-**Tham so:**
-- `Group ID`: ID cua nhom
-- `Question`: Cau hoi binh chon
-- `Options`: Cac lua chon (nhap bang danh sach hoac text phan cach bang dau phay)
-- `Expired Time`: Thoi gian het han (tuy chon)
-- `Pin Act`: Ghim binh chon len dau nhom
-- `Allow Multi Choices`: Cho phep chon nhieu lua chon
-- `Allow Add New Option`: Cho phep them lua chon moi
-- `Hide Vote Preview`: An ket qua truoc khi ket thuc
-- `Is Anonymous`: Binh chon an danh
+**Tham số:**
+- `Group ID`: ID của nhóm
+- `Question`: Câu hỏi bình chọn
+- `Options`: Các lựa chọn (nhập bằng danh sách hoặc text phân cách bằng dấu phẩy)
+- `Expired Time`: Thời gian hết hạn (tùy chọn)
+- `Pin Act`: Ghim bình chọn lên đầu nhóm
+- `Allow Multi Choices`: Cho phép chọn nhiều lựa chọn
+- `Allow Add New Option`: Cho phép thêm lựa chọn mới
+- `Hide Vote Preview`: Ẩn kết quả trước khi kết thúc
+- `Is Anonymous`: Bình chọn ẩn danh
 
-### Lay Thong Tin Binh Chon (getPoll)
-Lay thong tin chi tiet cua mot binh chon.
+### Lấy Thông Tin Bình Chọn (getPoll)
+Lấy thông tin chi tiết của một bình chọn.
 
-**Tham so:**
-- `Poll ID`: ID cua binh chon can lay thong tin
+**Tham số:**
+- `Poll ID`: ID của bình chọn cần lấy thông tin
 
-### Khoa Binh Chon (lockPoll)
-Khoa (dong) mot binh chon.
+### Khóa Bình Chọn (lockPoll)
+Khóa (đóng) một bình chọn.
 
-**Tham so:**
-- `Poll ID`: ID cua binh chon can khoa
+**Tham số:**
+- `Poll ID`: ID của bình chọn cần khóa
 
-## Vi Du Su Dung
+## Ví Dụ Sử Dụng
 
-### Tao binh chon moi
+### Tạo bình chọn mới
 ```
 Group ID: 123456789
-Question: Ban thich an gi?
-Options: Pho, Bun, Com
+Question: Bạn thích ăn gì?
+Options: Phở, Bún, Cơm
 Allow Multi Choices: true
 ```
 
-## Xu Ly Loi
+## Xử Lý Lỗi
 
-Node se xu ly cac loi pho bien sau:
-- Loi Group ID khong hop le
-- Loi Poll ID khong hop le
-- Loi quyen truy cap nhom
-- Loi ket noi mang
+Node sẽ xử lý các lỗi phổ biến sau:
+- Lỗi Group ID không hợp lệ
+- Lỗi Poll ID không hợp lệ
+- Lỗi quyền truy cập nhóm
+- Lỗi kết nối mạng

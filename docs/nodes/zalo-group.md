@@ -1,111 +1,111 @@
 # Zalo Group Node
 
-Node Zalo Group cho phep ban tuong tac voi API nhom cua Zalo, giup quan ly cac nhom va thanh vien trong nhom mot cach de dang.
+Node Zalo Group cho phép bạn tương tác với API nhóm của Zalo, giúp quản lý các nhóm và thành viên trong nhóm một cách dễ dàng.
 
-## Cac Thao Tac
+## Các Thao Tác
 
-### Tao Nhom
-Tao mot nhom moi tren Zalo.
+### Tạo Nhóm
+Tạo một nhóm mới trên Zalo.
 
-**Tham so:**
-- `Ten Nhom`: Ten cua nhom moi
-- `Danh Sach ID Thanh Vien`: Danh sach ID cua cac thanh vien ban dau, phan cach bang dau phay
+**Tham số:**
+- `Tên Nhóm`: Tên của nhóm mới
+- `Danh Sách ID Thành Viên`: Danh sách ID của các thành viên ban đầu, phân cách bằng dấu phẩy
 
-### Lay Thong Tin Nhom
-Lay thong tin chi tiet cua mot nhom.
+### Lấy Thông Tin Nhóm
+Lấy thông tin chi tiết của một nhóm.
 
-**Tham so:**
-- `ID Nhom`: ID cua nhom can lay thong tin
+**Tham số:**
+- `ID Nhóm`: ID của nhóm cần lấy thông tin
 
-### Them Pho Nhom
-Them mot nguoi dung lam pho nhom.
+### Thêm Phó Nhóm
+Thêm một người dùng làm phó nhóm.
 
-**Tham so:**
-- `ID Nhom`: ID cua nhom
-- `ID Nguoi Dung`: ID cua nguoi dung can them lam pho nhom
+**Tham số:**
+- `ID Nhóm`: ID của nhóm
+- `ID Người Dùng`: ID của người dùng cần thêm làm phó nhóm
 
-### Them Thanh Vien Vao Nhom
-Them mot hoac nhieu thanh vien vao nhom.
+### Thêm Thành Viên Vào Nhóm
+Thêm một hoặc nhiều thành viên vào nhóm.
 
-**Tham so:**
-- `ID Nhom`: ID cua nhom
-- `Danh Sach ID Thanh Vien`: Danh sach ID cua cac thanh vien can them, phan cach bang dau phay
+**Tham số:**
+- `ID Nhóm`: ID của nhóm
+- `Danh Sách ID Thành Viên`: Danh sách ID của các thành viên cần thêm, phân cách bằng dấu phẩy
 
-### Doi Avatar Nhom
-Thay doi anh dai dien cua nhom.
+### Đổi Avatar Nhóm
+Thay đổi ảnh đại diện của nhóm.
 
-**Tham so:**
-- `ID Nhom`: ID cua nhom
-- `URL Anh`: URL cua anh dai dien moi
+**Tham số:**
+- `ID Nhóm`: ID của nhóm
+- `URL Ảnh`: URL của ảnh đại diện mới
 
-### Doi Ten Nhom
-Thay doi ten cua nhom.
+### Đổi Tên Nhóm
+Thay đổi tên của nhóm.
 
-**Tham so:**
-- `ID Nhom`: ID cua nhom
-- `Ten Moi`: Ten moi cua nhom
+**Tham số:**
+- `ID Nhóm`: ID của nhóm
+- `Tên Mới`: Tên mới của nhóm
 
-### Lay Danh Sach Thanh Vien
-Lay danh sach cac thanh vien trong nhom.
+### Lấy Danh Sách Thành Viên
+Lấy danh sách các thành viên trong nhóm.
 
-**Tham so:**
-- `ID Nhom`: ID cua nhom
-- `Gioi Han`: So luong thanh vien toi da can lay (mac dinh: 50)
+**Tham số:**
+- `ID Nhóm`: ID của nhóm
+- `Giới Hạn`: Số lượng thành viên tối đa cần lấy (mặc định: 50)
 
-### Lay Tat Ca Nhom
-Lay danh sach tat ca cac nhom.
+### Lấy Tất Cả Nhóm
+Lấy danh sách tất cả các nhóm.
 
-### Xoa Thanh Vien Khoi Nhom
-Xoa mot hoac nhieu thanh vien khoi nhom.
+### Xóa Thành Viên Khỏi Nhóm
+Xóa một hoặc nhiều thành viên khỏi nhóm.
 
-**Tham so:**
-- `ID Nhom`: ID cua nhom
-- `ID Nguoi Dung`: Danh sach ID cua cac thanh vien can xoa, phan cach bang dau phay
+**Tham số:**
+- `ID Nhóm`: ID của nhóm
+- `ID Người Dùng`: Danh sách ID của các thành viên cần xóa, phân cách bằng dấu phẩy
 
-### Tao Ghi Chu
-Tao ghi chu trong nhom (co the ghim).
+### Tạo Ghi Chú
+Tạo ghi chú trong nhóm (có thể ghim).
 
-**Tham so:**
-- `ID Nhom`: ID cua nhom
-- `Noi Dung`: Noi dung ghi chu
-- `Ghim`: Co ghim ghi chu hay khong
+**Tham số:**
+- `ID Nhóm`: ID của nhóm
+- `Nội Dung`: Nội dung ghi chú
+- `Ghim`: Có ghim ghi chú hay không
 
-### Lay Lich Su Tin Nhan Nhom *(MỚI)*
-Lay lich su tin nhan cua nhom.
+### Lấy Lịch Sử Tin Nhắn Nhóm *(MỚI)*
+Lấy lịch sử tin nhắn của nhóm.
 
-**Tham so:**
-- `ID Nhom`: ID cua nhom
-- `So Luong`: So luong tin nhan can lay
+**Tham số:**
+- `ID Nhóm`: ID của nhóm
+- `Số Lượng`: Số lượng tin nhắn cần lấy
 
-### Nang Cap Nhom Thanh Cong Dong *(MỚI)*
-Nang cap nhom thanh cong dong (community).
+### Nâng Cấp Nhóm Thành Cộng Đồng *(MỚI)*
+Nâng cấp nhóm thành cộng đồng (community).
 
-**Tham so:**
-- `ID Nhom`: ID cua nhom can nang cap
+**Tham số:**
+- `ID Nhóm`: ID của nhóm cần nâng cấp
 
-## Vi Du Su Dung
+## Ví Dụ Sử Dụng
 
-### Tao Nhom Moi
+### Tạo Nhóm Mới
 ```typescript
-const groupName = "Nhom Cong Viec";
+const groupName = "Nhóm Công Việc";
 const userIds = "123456789,987654321";
 ```
 
-### Lay Thong Tin Nhom
+### Lấy Thông Tin Nhóm
 ```typescript
 const groupId = "123456789";
 ```
 
-### Them Thanh Vien
+### Thêm Thành Viên
 ```typescript
 const groupId = "123456789";
 const userIds = "111222333,444555666";
 ```
 
-## Xu Ly Loi
+## Xử Lý Lỗi
 
-Node se xu ly cac loi pho bien sau:
-- Loi ID nhom khong hop le
-- Loi ID nguoi dung khong hop le
-- Loi quyen truy cap
-- Loi ket noi mang
+Node sẽ xử lý các lỗi phổ biến sau:
+- Lỗi ID nhóm không hợp lệ
+- Lỗi ID người dùng không hợp lệ
+- Lỗi quyền truy cập
+- Lỗi kết nối mạng

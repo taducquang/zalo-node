@@ -1,6 +1,6 @@
 # Thiết lập credentials
 
-Để có thể sử dụng các nodes Zalo bạn phải có Zalo credential. Cách tạo Zalo credential sẽ thông qua một vài bước sau đâu.
+Để có thể sử dụng các nodes Zalo bạn phải có Zalo credential. Cách tạo Zalo credential sẽ thông qua một vài bước sau đây.
 
 ## 1. Tạo API Key n8n
 
@@ -15,7 +15,7 @@
 ![Tạo API Key](../assets/apiKey.png)
 
 ## 2. Tạo n8n Credentials
-l
+
 Tiếp theo, bạn cần tạo credentials cho n8n:
 
 1. Ở trang chủ n8n, click vào mũi tên bên cạnh nút "Create Workflow"

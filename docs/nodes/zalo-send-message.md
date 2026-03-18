@@ -1,45 +1,45 @@
 # Zalo Send Message Node
 
-Node Zalo Send Message cho phep ban gui tin nhan den nguoi dung hoac nhom tren Zalo.
+Node Zalo Send Message cho phép bạn gửi tin nhắn đến người dùng hoặc nhóm trên Zalo.
 
-## Tham So
+## Tham Số
 
 ### Thread ID
-ID cua nguoi nhan hoac nhom.
+ID của người nhận hoặc nhóm.
 
 ### Type
-Loai tin nhan:
-- `User` (0): Gui den nguoi dung
-- `Group` (1): Gui den nhom
+Loại tin nhắn:
+- `User` (0): Gửi đến người dùng
+- `Group` (1): Gửi đến nhóm
 
 ### Message
-Noi dung tin nhan can gui.
+Nội dung tin nhắn cần gửi.
 
 ### Urgency
-Muc do khan cap:
-- `Default` (0): Mac dinh
-- `Important` (1): Quan trong
-- `Urgent` (2): Khan cap
+Mức độ khẩn cấp:
+- `Default` (0): Mặc định
+- `Important` (1): Quan trọng
+- `Urgent` (2): Khẩn cấp
 
 ### Quote Message
-Trich dan tin nhan:
-- `Message ID`: ID cua tin nhan can trich dan
-- `Sender ID`: ID cua nguoi gui tin nhan trich dan
-- `Content`: Noi dung tin nhan trich dan
+Trích dẫn tin nhắn:
+- `Message ID`: ID của tin nhắn cần trích dẫn
+- `Sender ID`: ID của người gửi tin nhắn trích dẫn
+- `Content`: Nội dung tin nhắn trích dẫn
 
 ### Mentions
-Mention nguoi dung trong tin nhan:
-- `User ID`: ID cua nguoi dung duoc mention
-- `Position`: Vi tri mention trong tin nhan
-- `Length`: Do dai cua mention
+Mention người dùng trong tin nhắn:
+- `User ID`: ID của người dùng được mention
+- `Position`: Vị trí mention trong tin nhắn
+- `Length`: Độ dài của mention
 
 ### Attachments
-Dinh kem file hoac anh:
-- `Image URL/File URL`: URL cong khai cua anh hoac file
-- Ho tro nhieu URL phan cach bang dau phay
+Đính kèm file hoặc ảnh:
+- `Image URL/File URL`: URL công khai của ảnh hoặc file
+- Hỗ trợ nhiều URL phân cách bằng dấu phẩy
 
 ### Styles JSON *(MỚI)*
-Dinh dang tin nhan bang JSON:
+Định dạng tin nhắn bằng JSON:
 ```json
 [
   {"start": 0, "len": 5, "st": "bold"},
@@ -47,26 +47,26 @@ Dinh dang tin nhan bang JSON:
 ]
 ```
 
-## Vi Du Su Dung
+## Ví Dụ Sử Dụng
 
-### Gui tin nhan van ban
+### Gửi tin nhắn văn bản
 ```
 Thread ID: 123456789
 Type: User
-Message: Xin chao!
+Message: Xin chào!
 ```
 
-### Gui tin nhan voi dinh kem
+### Gửi tin nhắn với đính kèm
 ```
 Thread ID: 123456789
 Type: Group
-Message: Day la file bao cao
+Message: Đây là file báo cáo
 Attachments: https://example.com/file1.pdf, https://example.com/file2.pdf
 ```
 
-## Xu Ly Loi
+## Xử Lý Lỗi
 
-Node se xu ly cac loi pho bien sau:
-- Loi thread ID khong hop le
-- Loi ket noi mang
-- Loi file dinh kem khong hop le
+Node sẽ xử lý các lỗi phổ biến sau:
+- Lỗi thread ID không hợp lệ
+- Lỗi kết nối mạng
+- Lỗi file đính kèm không hợp lệ

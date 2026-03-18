@@ -1,49 +1,49 @@
 # Zalo Message Trigger Node
 
-Node Zalo Message Trigger cho phep ban lang nghe va xu ly cac su kien tin nhan tren Zalo theo thoi gian thuc.
+Node Zalo Message Trigger cho phép bạn lắng nghe và xử lý các sự kiện tin nhắn trên Zalo theo thời gian thực.
 
-## Cau Hinh
+## Cấu Hình
 
 ### Event Types
-Chon cac loai su kien can lang nghe:
-- **User Messages**: Tin nhan tu nguoi dung
-- **Group Messages**: Tin nhan tu nhom
-- **Undo**: Su kien thu hoi tin nhan *(MỚI)*
-- **Typing**: Su kien dang go *(MỚI)*
-- **Reaction**: Su kien bieu cam *(MỚI)*
-- **Group Event**: Su kien nhom (them/xoa thanh vien, doi ten...) *(MỚI)*
+Chọn các loại sự kiện cần lắng nghe:
+- **User Messages**: Tin nhắn từ người dùng
+- **Group Messages**: Tin nhắn từ nhóm
+- **Undo**: Sự kiện thu hồi tin nhắn *(MỚI)*
+- **Typing**: Sự kiện đang gõ *(MỚI)*
+- **Reaction**: Sự kiện biểu cảm *(MỚI)*
+- **Group Event**: Sự kiện nhóm (thêm/xóa thành viên, đổi tên...) *(MỚI)*
 
 ### Self Listen
-Cho phep lang nghe tin nhan cua chinh minh tu gui.
+Cho phép lắng nghe tin nhắn của chính mình tự gửi.
 
-## Tinh Nang
+## Tính Năng
 
-### Tu dong ket noi lai
-Node tu dong ket noi lai khi mat ket noi WebSocket (retryOnClose), dam bao hoat dong lien tuc trong moi truong san xuat.
+### Tự động kết nối lại
+Node tự động kết nối lại khi mất kết nối WebSocket (retryOnClose), đảm bảo hoạt động liên tục trong môi trường sản xuất.
 
 ### Proxy Support
-Ho tro proxy qua HttpsProxyAgent, cau hinh trong Zalo credentials.
+Hỗ trợ proxy, cấu hình trong Zalo credentials.
 
-## Du Lieu Tra Ve
+## Dữ Liệu Trả Về
 
-Moi su kien se tra ve object chua:
-- `eventName`: Ten su kien (message, undo, typing, reaction, group_event)
-- Du lieu cu the cua tung su kien
+Mỗi sự kiện sẽ trả về object chứa:
+- `eventName`: Tên sự kiện (message, undo, typing, reaction, group_event)
+- Dữ liệu cụ thể của từng sự kiện
 
-### Vi du du lieu tin nhan
+### Ví dụ dữ liệu tin nhắn
 ```json
 {
   "eventName": "message",
   "data": {
     "threadId": "123456789",
     "type": 0,
-    "content": "Xin chao!",
+    "content": "Xin chào!",
     "senderId": "987654321"
   }
 }
 ```
 
-### Vi du du lieu undo
+### Ví dụ dữ liệu undo
 ```json
 {
   "eventName": "undo",
@@ -54,9 +54,9 @@ Moi su kien se tra ve object chua:
 }
 ```
 
-## Xu Ly Loi
+## Xử Lý Lỗi
 
-Node se xu ly cac loi pho bien sau:
-- Loi ket noi WebSocket
-- Loi xac thuc credentials
-- Tu dong ket noi lai khi mat ket noi
+Node sẽ xử lý các lỗi phổ biến sau:
+- Lỗi kết nối WebSocket
+- Lỗi xác thực credentials
+- Tự động kết nối lại khi mất kết nối
