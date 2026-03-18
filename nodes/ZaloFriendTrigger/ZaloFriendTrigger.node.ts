@@ -95,10 +95,8 @@ export class ZaloFriendTrigger implements INodeType {
 						);
 					}
 					const webhookUrl = this.getNodeWebhookUrl('default') as string;
-					console.log(webhookUrl);
 
-
-					// Add message event listener
+					// Add friend event listener
 					api.listener.on('friend_event', async (event: FriendEvent) => {
 						const nodeEventTypes = this.getNodeParameter('eventTypes', 0) as FriendEventType[];
 						if(nodeEventTypes.includes(event.type)) {
@@ -150,8 +148,6 @@ export class ZaloFriendTrigger implements INodeType {
 
 	async webhook(this: IWebhookFunctions): Promise<IWebhookResponseData> {
 		const req = this.getRequestObject();
-		const body = req.body;
-		console.log(body);
 
 		return {
 			workflowData: [this.helpers.returnJsonArray(req.body)],

@@ -27,7 +27,7 @@ export async function saveFile(url: string): Promise<string | null> {
 
 		return filePath;
 	} catch (error) {
-		console.error('Lỗi khi tải/lưu file:', error);
+		// File download/save failed
 		return null;
 	}
 }
@@ -41,7 +41,7 @@ export function removeFile(filePath: string): void {
 			fs.unlinkSync(filePath);
 		}
 	} catch (error) {
-		console.error('Lỗi khi xoá file:', error);
+		// File removal failed
 	}
 }
 

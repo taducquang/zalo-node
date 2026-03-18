@@ -5,7 +5,6 @@ import {
 	IWebhookResponseData,
 	NodeOperationError,
 	IHookFunctions,
-	IDataObject,
 } from 'n8n-workflow';
 import { API, Zalo, Undo, GroupEvent } from 'zca-js';
 const { HttpsProxyAgent } = require('https-proxy-agent');
@@ -130,7 +129,6 @@ export class ZaloMessageTrigger implements INodeType {
 						);
 					}
                     const webhookUrl = this.getNodeWebhookUrl('default') as string;
-                    console.log(webhookUrl);
 					const eventTypes = this.getNodeParameter('eventTypes', 0) as string[];
 
 					// Message events
@@ -235,11 +233,7 @@ export class ZaloMessageTrigger implements INodeType {
 
 	async webhook(this: IWebhookFunctions): Promise<IWebhookResponseData> {
         const req = this.getRequestObject();
-        const body = req.body;
-        console.log(body);
 		const webhookData = this.getWorkflowStaticData('node');
-		const message = webhookData.lastMessage as IDataObject;
-        console.log(message);
 
 
 		// Clear the message after processing
