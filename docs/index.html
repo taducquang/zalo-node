@@ -4,374 +4,490 @@
   <meta charset="UTF-8">
   <title>n8n-nodes-zalo-node</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="description" content="n8n-nodes-zalo-node - Documentation">
+  <meta name="description" content="n8n-nodes-zalo-node - Tài liệu hướng dẫn">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/dark.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
+    /* ━━━ Foundation ━━━ */
     :root {
-      --bg: #1a1a1a;
-      --bg-secondary: #232323;
-      --surface: #2a2a2a;
-      --surface-hover: #333333;
-      --primary: #d4a27a;
-      --primary-hover: #c48e62;
-      --primary-subtle: rgba(212, 162, 122, 0.12);
-      --text: #e8e4e0;
-      --text-secondary: #9a9590;
-      --text-muted: #6b6560;
-      --border: #3a3735;
-      --border-subtle: #2e2c2a;
-      --code-bg: #252220;
-      --sidebar-bg: #1e1e1e;
-      --sidebar-hover: #2a2826;
-      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
-      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
-      --radius: 10px;
-      --radius-sm: 6px;
+      --base-background-color: #171717 !important;
+      --sidebar-background: #111111 !important;
+      --theme-color: #d4a27a !important;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: var(--bg) !important;
-      color: var(--text);
-      line-height: 1.7;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+      background: #171717 !important;
+      color: #ddd8d3 !important;
+      line-height: 1.75 !important;
       -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
 
-    /* ─── Sidebar ─── */
+    /* ━━━ Hide GitHub corner ━━━ */
+    .github-corner { display: none !important; }
+
+    /* ━━━ Sidebar ━━━ */
     .sidebar {
-      background: var(--sidebar-bg) !important;
-      border-right: 1px solid var(--border-subtle);
-      padding: 1.5rem 0;
+      background: #111111 !important;
+      border-right: 1px solid #2a2725 !important;
+      color: #ddd8d3 !important;
+      padding-top: 0 !important;
     }
 
-    .sidebar-nav {
-      padding: 0 0.75rem;
+    .sidebar > h1 {
+      margin: 0 !important;
+      padding: 0 !important;
     }
 
-    .sidebar-nav li {
-      margin: 2px 0;
-    }
-
-    .sidebar-nav a {
-      color: var(--text-secondary);
-      padding: 0.5rem 0.85rem;
-      border-radius: var(--radius-sm);
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      font-size: 0.9rem;
-      font-weight: 500;
-      display: block;
-      text-decoration: none;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .sidebar-nav a::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%) scaleY(0);
-      width: 3px;
-      height: 60%;
-      background: var(--primary);
-      border-radius: 0 2px 2px 0;
-      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .sidebar-nav a:hover {
-      background: var(--sidebar-hover);
-      color: var(--text);
-      padding-left: 1.1rem;
-    }
-
-    .sidebar-nav a:hover::before {
-      transform: translateY(-50%) scaleY(1);
-    }
-
-    .sidebar ul li.active > a {
-      background: var(--primary-subtle);
-      border: none;
-      color: var(--primary);
-      font-weight: 600;
-      padding-left: 1.1rem;
-    }
-
-    .sidebar ul li.active > a::before {
-      transform: translateY(-50%) scaleY(1);
-    }
-
-    .sidebar ul li.active > a:hover {
-      background: rgba(212, 162, 122, 0.18);
-      color: var(--primary);
-    }
-
-    .app-sub-sidebar li:before {
-      content: "";
-      padding-right: 4px;
-      float: left;
-    }
-
+    /* Site name / logo */
     .app-name-link {
-      font-weight: 800 !important;
-      font-size: 1rem !important;
-      color: var(--text) !important;
-      letter-spacing: -0.02em;
-      padding: 0.5rem 0.85rem !important;
+      display: block !important;
+      font-weight: 700 !important;
+      font-size: 0.95rem !important;
+      color: #ece8e4 !important;
+      letter-spacing: -0.01em !important;
+      padding: 1.25rem 1.25rem 1rem !important;
+      border-bottom: 1px solid #2a2725 !important;
+      margin-bottom: 0.5rem !important;
+      text-decoration: none !important;
     }
 
-    /* Section labels in sidebar */
-    .sidebar-nav > ul > li > p {
-      color: var(--text-muted);
-      font-size: 0.7rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      padding: 1rem 0.85rem 0.25rem;
-      margin: 0;
+    .app-name-link:hover {
+      color: #d4a27a !important;
     }
 
-    /* ─── Content ─── */
-    .content {
-      background: var(--bg) !important;
-      padding: 2.5rem 3rem;
+    /* ── Search ── */
+    .sidebar .search {
+      margin: 0 !important;
+      padding: 0.75rem 1rem !important;
+      border-bottom: 1px solid #2a2725 !important;
     }
 
-    .markdown-section {
-      max-width: 780px;
-      margin: 0 auto;
-    }
-
-    /* h1 — Page title */
-    .markdown-section h1 {
-      color: var(--text);
-      font-size: 2.5rem;
-      margin-bottom: 1.75rem;
-      font-weight: 800;
-      letter-spacing: -0.035em;
-      line-height: 1.15;
-    }
-
-    /* h2 — Section header — large with border */
-    .markdown-section h2 {
-      color: var(--text);
-      font-size: 1.7rem;
-      margin: 3rem 0 1.25rem;
-      font-weight: 700;
-      letter-spacing: -0.025em;
-      padding-bottom: 0.6rem;
-      border-bottom: 1px solid var(--border);
-      line-height: 1.3;
-    }
-
-    /* h3 — Subsection — clearly smaller, no border, muted accent */
-    .markdown-section h3 {
-      color: var(--primary);
-      font-size: 1.1rem;
-      margin: 2rem 0 0.6rem;
-      font-weight: 600;
-      letter-spacing: 0;
-      line-height: 1.4;
-    }
-
-    .markdown-section p {
-      margin-bottom: 1rem;
-      color: var(--text);
-    }
-
-    .markdown-section a {
-      color: var(--primary);
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.2s, color 0.2s;
-    }
-
-    .markdown-section a:hover {
-      border-bottom-color: var(--primary);
-      color: var(--primary-hover);
-    }
-
-    .markdown-section strong {
-      font-weight: 600;
-      color: var(--text);
-    }
-
-    .markdown-section blockquote {
-      border-left: 3px solid var(--primary);
-      padding: 0.75rem 1.25rem;
-      margin: 1.5rem 0;
-      background: var(--surface);
-      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-      color: var(--text-secondary);
-    }
-
-    .markdown-section blockquote p {
-      color: var(--text-secondary);
-    }
-
-    /* ─── Tables ─── */
-    .markdown-section table {
-      border-collapse: collapse;
-      width: 100%;
-      margin: 1.5rem 0;
-      border-radius: var(--radius);
-      overflow: hidden;
-      border: 1px solid var(--border);
-    }
-
-    .markdown-section table th {
-      background: var(--surface);
-      font-weight: 600;
-      text-align: left;
-      padding: 0.75rem 1rem;
-      border-bottom: 2px solid var(--border);
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--text-muted);
-    }
-
-    .markdown-section table td {
-      padding: 0.75rem 1rem;
-      border-bottom: 1px solid var(--border-subtle);
-      color: var(--text);
-    }
-
-    .markdown-section table tr:last-child td {
-      border-bottom: none;
-    }
-
-    .markdown-section table tr:hover td {
-      background: var(--surface);
-    }
-
-    /* ─── Code ─── */
-    pre {
-      background: var(--code-bg) !important;
-      border-radius: var(--radius);
-      padding: 1.25rem 1.5rem;
-      border: 1px solid var(--border);
-      margin: 1.5rem 0;
-    }
-
-    code {
-      font-family: 'Fira Code', 'SF Mono', 'Cascadia Code', 'Consolas', monospace;
-      font-size: 0.875rem;
-      color: var(--text);
-    }
-
-    :not(pre) > code {
-      background: var(--surface);
-      padding: 0.2rem 0.45rem;
-      border-radius: 4px;
-      color: var(--primary);
-      font-size: 0.85em;
-      border: 1px solid var(--border-subtle);
-    }
-
-    /* ─── Search ─── */
-    .search {
-      margin-bottom: 1rem;
-    }
-
-    .search .input-wrap {
-      background: var(--surface) !important;
-      border: 1px solid var(--border) !important;
-      border-radius: var(--radius-sm) !important;
-    }
-
-    .search input[type="search"] {
+    .sidebar .search .input-wrap {
+      display: flex !important;
+      padding: 0 !important;
+      border: 0 !important;
       background: transparent !important;
-      color: var(--text) !important;
-      font-family: 'Inter', sans-serif !important;
     }
 
-    .search input::placeholder {
-      color: var(--text-muted) !important;
+    .sidebar .search input {
+      width: 100% !important;
+      height: auto !important;
+      margin: 0 !important;
+      padding: 0.5rem 0.75rem !important;
+      border: 1px solid #2a2725 !important;
+      border-radius: 8px !important;
+      background: #1c1a19 !important;
+      color: #ddd8d3 !important;
+      font-family: 'Inter', sans-serif !important;
+      font-size: 0.85rem !important;
+      outline: none !important;
+      transition: border-color 0.2s !important;
+    }
+
+    .sidebar .search input:focus {
+      border-color: #d4a27a !important;
+    }
+
+    .sidebar .search input::placeholder {
+      color: #5a5550 !important;
+    }
+
+    .search .clear-button { color: #5a5550 !important; }
+    .search .clear-button svg { fill: #5a5550 !important; }
+
+    .search .results-panel {
+      background: #1c1a19 !important;
+      border: 1px solid #2a2725 !important;
+      border-radius: 8px !important;
+      margin-top: 4px !important;
     }
 
     .search .matching-post {
-      background: var(--surface) !important;
-      border-bottom: 1px solid var(--border-subtle) !important;
+      border-bottom: 1px solid #2a2725 !important;
     }
 
-    .search .matching-post:hover {
-      background: var(--surface-hover) !important;
+    .search .matching-post:last-child {
+      border-bottom: 0 !important;
     }
 
-    /* ─── Lists ─── */
+    .search a { color: #ddd8d3 !important; }
+    .search a:hover { color: #d4a27a !important; }
+    .search h2 { font-size: 0.8rem !important; color: #9a9590 !important; }
+
+    /* ── Nav layout ── */
+    .sidebar-nav {
+      padding: 0 0.6rem !important;
+    }
+
+    .sidebar-nav ul {
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+
+    .sidebar-nav li {
+      list-style: none !important;
+      margin: 0 !important;
+    }
+
+    /* ── Category labels (Giới thiệu, Bắt đầu, Nodes) ── */
+    .sidebar-nav > ul > li > p,
+    .sidebar-nav > ul > li > strong {
+      display: block !important;
+      color: #6a6560 !important;
+      font-size: 0.68rem !important;
+      font-weight: 700 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.1em !important;
+      padding: 1.25rem 0.75rem 0.35rem !important;
+      margin: 0 !important;
+      line-height: 1 !important;
+      cursor: default !important;
+      pointer-events: none !important;
+    }
+
+    /* First category: less top padding */
+    .sidebar-nav > ul > li:first-child > p,
+    .sidebar-nav > ul > li:first-child > strong {
+      padding-top: 0.5rem !important;
+    }
+
+    /* ── Nav links ── */
+    .sidebar-nav a {
+      color: #9a9590 !important;
+      padding: 0.4rem 0.75rem !important;
+      border-radius: 7px !important;
+      font-size: 0.85rem !important;
+      font-weight: 500 !important;
+      display: block !important;
+      text-decoration: none !important;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      position: relative !important;
+      border: none !important;
+      margin: 1px 0 !important;
+    }
+
+    .sidebar-nav a::before {
+      content: '' !important;
+      position: absolute !important;
+      left: 0 !important;
+      top: 50% !important;
+      transform: translateY(-50%) scaleY(0) !important;
+      width: 3px !important;
+      height: 55% !important;
+      background: #d4a27a !important;
+      border-radius: 0 3px 3px 0 !important;
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+
+    /* Hover */
+    .sidebar-nav a:hover {
+      color: #ece8e4 !important;
+      background: #1e1c1b !important;
+      padding-left: 1rem !important;
+    }
+
+    .sidebar-nav a:hover::before {
+      transform: translateY(-50%) scaleY(1) !important;
+    }
+
+    /* Active */
+    .sidebar ul li.active > a,
+    .sidebar-nav li.active > a {
+      color: #d4a27a !important;
+      background: rgba(212, 162, 122, 0.08) !important;
+      font-weight: 600 !important;
+      padding-left: 1rem !important;
+      border: none !important;
+    }
+
+    .sidebar ul li.active > a::before,
+    .sidebar-nav li.active > a::before {
+      transform: translateY(-50%) scaleY(1) !important;
+    }
+
+    .sidebar ul li.active > a:hover {
+      background: rgba(212, 162, 122, 0.12) !important;
+    }
+
+    /* Sub-sidebar (h2 anchors in page) */
+    .app-sub-sidebar {
+      padding-left: 0.5rem !important;
+    }
+
+    .app-sub-sidebar li::before {
+      content: "" !important;
+      padding: 0 !important;
+    }
+
+    .app-sub-sidebar a {
+      font-size: 0.8rem !important;
+      color: #6a6560 !important;
+      padding: 0.25rem 0.75rem !important;
+    }
+
+    .app-sub-sidebar a:hover {
+      color: #9a9590 !important;
+    }
+
+    /* ━━━ Main Content ━━━ */
+    .content {
+      background: #171717 !important;
+      padding: 2.5rem 3rem !important;
+    }
+
+    .markdown-section {
+      max-width: 760px !important;
+      margin: 0 auto !important;
+      color: #ddd8d3 !important;
+    }
+
+    /* ── h1 — Page title ── */
+    .markdown-section h1 {
+      color: #ece8e4 !important;
+      font-size: 2.2rem !important;
+      margin: 0 0 0.5rem !important;
+      padding: 0 !important;
+      font-weight: 800 !important;
+      letter-spacing: -0.035em !important;
+      line-height: 1.2 !important;
+      border: none !important;
+    }
+
+    .markdown-section h1 + p {
+      margin-top: 1rem !important;
+    }
+
+    /* ── h2 — Major section ── */
+    .markdown-section h2 {
+      color: #ece8e4 !important;
+      font-size: 1.5rem !important;
+      margin: 2.75rem 0 1rem !important;
+      padding: 0 0 0.5rem 0 !important;
+      font-weight: 700 !important;
+      letter-spacing: -0.02em !important;
+      line-height: 1.3 !important;
+      border-bottom: 1px solid #2a2725 !important;
+    }
+
+    /* ── h3 — Subsection — accent color, smaller ── */
+    .markdown-section h3 {
+      color: #d4a27a !important;
+      font-size: 1.05rem !important;
+      margin: 1.75rem 0 0.5rem !important;
+      padding: 0 !important;
+      font-weight: 600 !important;
+      letter-spacing: 0 !important;
+      line-height: 1.4 !important;
+      border: none !important;
+    }
+
+    .markdown-section h4 {
+      color: #9a9590 !important;
+      font-size: 0.9rem !important;
+      font-weight: 600 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.04em !important;
+      margin: 1.5rem 0 0.5rem !important;
+      padding: 0 !important;
+      border: none !important;
+    }
+
+    /* ── Text ── */
+    .markdown-section p {
+      color: #bbb6b0 !important;
+      margin: 0 0 1rem !important;
+      font-size: 0.95rem !important;
+      line-height: 1.75 !important;
+    }
+
+    .markdown-section a {
+      color: #d4a27a !important;
+      text-decoration: none !important;
+      transition: color 0.15s !important;
+      border: none !important;
+    }
+
+    .markdown-section a:hover {
+      color: #e8c4a8 !important;
+      text-decoration: underline !important;
+    }
+
+    .markdown-section strong {
+      color: #ece8e4 !important;
+      font-weight: 600 !important;
+    }
+
+    .markdown-section em {
+      color: #d4a27a !important;
+    }
+
+    /* ── Lists ── */
     .markdown-section ul,
     .markdown-section ol {
-      padding-left: 1.5rem;
+      padding-left: 1.5rem !important;
+      margin: 0.5rem 0 1rem !important;
     }
 
     .markdown-section li {
-      margin: 0.4rem 0;
-      color: var(--text);
+      color: #bbb6b0 !important;
+      margin: 0.35rem 0 !important;
+      font-size: 0.95rem !important;
+      line-height: 1.65 !important;
     }
 
-    .markdown-section li::marker {
-      color: var(--text-muted);
+    .markdown-section ul > li {
+      list-style-type: none !important;
+      position: relative !important;
+      padding-left: 0.25rem !important;
     }
 
-    /* ─── Horizontal rule ─── */
+    .markdown-section ul > li::before {
+      content: '›' !important;
+      position: absolute !important;
+      left: -1rem !important;
+      color: #d4a27a !important;
+      font-weight: 700 !important;
+      font-size: 1.1em !important;
+    }
+
+    /* Nested list items */
+    .markdown-section ul ul > li::before {
+      content: '–' !important;
+      color: #5a5550 !important;
+      font-weight: 400 !important;
+    }
+
+    .markdown-section ol > li::marker {
+      color: #d4a27a !important;
+      font-weight: 600 !important;
+    }
+
+    /* ── Blockquote ── */
+    .markdown-section blockquote {
+      border-left: 3px solid #d4a27a !important;
+      padding: 0.75rem 1.25rem !important;
+      margin: 1.25rem 0 !important;
+      background: rgba(212, 162, 122, 0.05) !important;
+      border-radius: 0 8px 8px 0 !important;
+    }
+
+    .markdown-section blockquote p {
+      color: #9a9590 !important;
+    }
+
+    /* ── Table ── */
+    .markdown-section table {
+      border-collapse: collapse !important;
+      width: 100% !important;
+      margin: 1.25rem 0 !important;
+      border: 1px solid #2a2725 !important;
+      border-radius: 8px !important;
+      overflow: hidden !important;
+    }
+
+    .markdown-section table th {
+      background: #1c1a19 !important;
+      font-weight: 600 !important;
+      text-align: left !important;
+      padding: 0.6rem 0.85rem !important;
+      border-bottom: 1px solid #2a2725 !important;
+      font-size: 0.75rem !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.06em !important;
+      color: #6a6560 !important;
+    }
+
+    .markdown-section table td {
+      padding: 0.6rem 0.85rem !important;
+      border-bottom: 1px solid #1f1d1c !important;
+      color: #bbb6b0 !important;
+      font-size: 0.9rem !important;
+    }
+
+    .markdown-section table tr:last-child td {
+      border-bottom: none !important;
+    }
+
+    .markdown-section table tr:hover td {
+      background: rgba(212, 162, 122, 0.03) !important;
+    }
+
+    /* ── Code ── */
+    pre {
+      background: #0f0e0d !important;
+      border: 1px solid #2a2725 !important;
+      border-radius: 10px !important;
+      padding: 1.25rem 1.5rem !important;
+      margin: 1.25rem 0 !important;
+    }
+
+    pre code {
+      color: #bbb6b0 !important;
+      font-size: 0.85rem !important;
+      background: transparent !important;
+    }
+
+    code {
+      font-family: 'Fira Code', 'SF Mono', 'Cascadia Code', 'Consolas', monospace !important;
+    }
+
+    :not(pre) > code {
+      background: #1f1d1c !important;
+      padding: 0.15rem 0.45rem !important;
+      border-radius: 5px !important;
+      color: #d4a27a !important;
+      font-size: 0.85em !important;
+      border: 1px solid #2a2725 !important;
+    }
+
+    /* Prism token colors for dark theme */
+    .token.comment,
+    .token.prolog { color: #5a5550 !important; }
+    .token.keyword { color: #c792ea !important; }
+    .token.string { color: #c3e88d !important; }
+    .token.number { color: #f78c6c !important; }
+    .token.function { color: #82aaff !important; }
+    .token.operator { color: #89ddff !important; }
+    .token.punctuation { color: #7a7570 !important; }
+    .token.property { color: #d4a27a !important; }
+
+    /* ── HR ── */
     .markdown-section hr {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 2rem 0;
+      border: none !important;
+      border-top: 1px solid #2a2725 !important;
+      margin: 2rem 0 !important;
     }
 
-    /* ─── Scrollbar ─── */
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #2a2725; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #3a3735; }
 
-    ::-webkit-scrollbar-track {
-      background: transparent;
-    }
+    /* ── Docsify overrides ── */
+    .sidebar-toggle { background: #111111 !important; }
+    .sidebar-toggle span { background: #5a5550 !important; }
+    body .docsify-copy-code-button { color: #6a6560 !important; }
 
-    ::-webkit-scrollbar-thumb {
-      background: var(--border);
-      border-radius: 3px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--text-muted);
-    }
-
-    /* ─── Responsive ─── */
+    /* ── Responsive ── */
     @media (max-width: 768px) {
-      .content {
-        padding: 1.5rem 1rem;
-      }
-
-      .markdown-section h1 {
-        font-size: 1.85rem;
-      }
-
-      .markdown-section h2 {
-        font-size: 1.4rem;
-      }
-
-      .markdown-section h3 {
-        font-size: 1rem;
-      }
+      .content { padding: 1.5rem 1rem !important; }
+      .markdown-section h1 { font-size: 1.75rem !important; }
+      .markdown-section h2 { font-size: 1.3rem !important; }
+      .markdown-section h3 { font-size: 1rem !important; }
     }
   </style>
 </head>
 <body>
-  <div id="app"></div>
+  <div id="app">Đang tải...</div>
   <script>
     window.$docsify = {
       name: 'n8n-nodes-zalo-node',
-      repo: 'https://github.com/taducquang/zalo-node',
+      repo: '',
       loadSidebar: 'sidebar.md',
       subMaxLevel: 2,
       search: {
@@ -399,9 +515,9 @@
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-javascript.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-typescript.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-json.min.js"></script>
 </body>
 </html>
