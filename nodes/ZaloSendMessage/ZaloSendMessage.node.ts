@@ -9,8 +9,6 @@ import { API, ThreadType, Zalo } from 'zca-js';
 const { HttpsProxyAgent } = require('https-proxy-agent');
 import { saveFile, removeFile } from '../utils/helper';
 
-let api: API | undefined;
-
 export class ZaloSendMessage implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'Zalo Send Message',
@@ -213,6 +211,7 @@ export class ZaloSendMessage implements INodeType {
 		const userAgentFromCred = zaloCred.userAgent as string;
 
 		// Initialize Zalo API
+		let api: API;
 		try {
 			const proxy = (zaloCred.proxy as string) || '';
 
@@ -222,12 +221,12 @@ export class ZaloSendMessage implements INodeType {
 			}
 
 			const zalo = new Zalo(zaloOptions);
-			api = await zalo.login({ 
+			api = await zalo.login({
 				cookie: cookieFromCred,
-				imei: imeiFromCred, 
-				userAgent: userAgentFromCred 
+				imei: imeiFromCred,
+				userAgent: userAgentFromCred
 			});
-			
+
 			if (!api) {
 				throw new NodeOperationError(this.getNode(), 'Failed to initialize Zalo API. Check your credentials.');
 			}

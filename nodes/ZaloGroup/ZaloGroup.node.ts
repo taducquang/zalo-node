@@ -7,10 +7,8 @@ import {
 	IDataObject,
 } from 'n8n-workflow';
 import { zaloGroupOperations, zaloGroupFields } from './ZaloGroupDescription';
-import { API, Zalo } from 'zca-js';
+import { Zalo } from 'zca-js';
 const { HttpsProxyAgent } = require('https-proxy-agent');
-
-let api: API | undefined;
 
 export class ZaloGroup implements INodeType {
 	description: INodeTypeDescription = {
@@ -77,8 +75,7 @@ export class ZaloGroup implements INodeType {
 		}
 
 		const zalo = new Zalo(zaloOptions);
-		const _api = await zalo.login({ cookie, imei, userAgent });
-		api = _api;
+		const api = await zalo.login({ cookie, imei, userAgent });
 
 		if (!api) {
 			throw new NodeOperationError(this.getNode(), 'No API instance found. Please make sure to provide valid credentials.');
