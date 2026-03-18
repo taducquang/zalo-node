@@ -2,6 +2,59 @@ import axios from 'axios';
 import fs from 'fs';
 import os from 'os';
 import path from 'path';
+import * as http from 'http';
+import * as tls from 'tls';
+import * as net from 'net';
+
+/**
+ * Create a proxy agent using Node.js built-in modules (no external dependency)
+ */
+export function createProxyAgent(proxyUrl: string): http.Agent {
+	const parsed = new URL(proxyUrl);
+	const proxyHost = parsed.hostname;
+	const proxyPort = parseInt(parsed.port) || (parsed.protocol === 'https:' ? 443 : 80);
+	const proxyAuth = parsed.username
+		? `${decodeURIComponent(parsed.username)}:${decodeURIComponent(parsed.password)}`
+		: undefined;
+
+	return new (class extends http.Agent {
+		createConnection(options: any, callback: (err: Error | null, socket?: net.Socket) => void): net.Socket {
+			const connectHeaders: Record<string, string> = {
+				Host: `${options.host}:${options.port}`,
+			};
+			if (proxyAuth) {
+				connectHeaders['Proxy-Authorization'] = `Basic ${Buffer.from(proxyAuth).toString('base64')}`;
+			}
+
+			const req = http.request({
+				host: proxyHost,
+				port: proxyPort,
+				method: 'CONNECT',
+				path: `${options.host}:${options.port}`,
+				headers: connectHeaders,
+			});
+
+			req.on('connect', (_res, socket) => {
+				if (options.port === 443 || options.port === '443') {
+					const tlsSocket = tls.connect({
+						socket: socket,
+						servername: options.host,
+					});
+					callback(null, tlsSocket as any);
+				} else {
+					callback(null, socket);
+				}
+			});
+
+			req.on('error', (err) => {
+				callback(err);
+			});
+
+			req.end();
+			return new net.Socket();
+		}
+	})();
+}
 
 /**
  * Parse cookie JSON string from credentials with error handling

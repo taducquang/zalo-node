@@ -6,8 +6,7 @@ import {
 	NodeOperationError
 } from 'n8n-workflow';
 import { API, ThreadType, Zalo } from 'zca-js';
-const { HttpsProxyAgent } = require('https-proxy-agent');
-import { saveFile, removeFile, parseCookie } from '../utils/helper';
+import { saveFile, removeFile, parseCookie, createProxyAgent } from '../utils/helper';
 
 export class ZaloSendMessage implements INodeType {
 	description: INodeTypeDescription = {
@@ -217,7 +216,7 @@ export class ZaloSendMessage implements INodeType {
 
 			const zaloOptions: any = {};
 			if (proxy) {
-				zaloOptions.agent = new HttpsProxyAgent(proxy);
+				zaloOptions.agent = createProxyAgent(proxy);
 			}
 
 			const zalo = new Zalo(zaloOptions);

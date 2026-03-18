@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-zalo-node",
-	"version": "0.6.0",
+	"version": "0.6.3",
 	"description": "Các node hỗ trợ Zalo cho n8n",
 	"keywords": [
 		"n8n-community-node-package",
@@ -70,7 +70,6 @@
 	},
 	"dependencies": {
 		"axios": "^1.13.6",
-		"https-proxy-agent": "^8.0.0",
 		"zca-js": "^2.1.2"
 	}
 }

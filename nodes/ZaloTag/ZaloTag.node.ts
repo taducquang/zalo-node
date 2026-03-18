@@ -1,7 +1,6 @@
 import { INodeType, INodeTypeDescription, IExecuteFunctions, INodeExecutionData, NodeApiError } from 'n8n-workflow';
 import { Zalo } from 'zca-js';
-import { parseCookie } from '../utils/helper';
-const { HttpsProxyAgent } = require('https-proxy-agent');
+import { parseCookie, createProxyAgent } from '../utils/helper';
 
 export class ZaloTag implements INodeType {
     description: INodeTypeDescription = {
@@ -58,7 +57,7 @@ export class ZaloTag implements INodeType {
 
         const zaloOptions: any = {};
         if (proxy) {
-            zaloOptions.agent = new HttpsProxyAgent(proxy);
+            zaloOptions.agent = createProxyAgent(proxy);
         }
 
         let api;

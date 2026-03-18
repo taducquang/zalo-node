@@ -8,8 +8,7 @@ import {
 } from 'n8n-workflow';
 import { zaloPollOperations, zaloPollFields } from './ZaloPollDescription';
 import { Zalo } from 'zca-js';
-import { parseCookie } from '../utils/helper';
-const { HttpsProxyAgent } = require('https-proxy-agent');
+import { parseCookie, createProxyAgent } from '../utils/helper';
 
 export class ZaloPoll implements INodeType {
     description: INodeTypeDescription = {
@@ -72,7 +71,7 @@ export class ZaloPoll implements INodeType {
 
         const zaloOptions: any = {};
         if (proxy) {
-            zaloOptions.agent = new HttpsProxyAgent(proxy);
+            zaloOptions.agent = createProxyAgent(proxy);
         }
         const zalo = new Zalo(zaloOptions);
         const api = await zalo.login({ cookie, imei, userAgent });

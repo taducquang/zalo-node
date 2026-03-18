@@ -7,8 +7,7 @@ import {
 } from 'n8n-workflow';
 import { zaloStickerOperations, zaloStickerFields } from './ZaloStickerDescription';
 import { Zalo } from 'zca-js';
-import { parseCookie } from '../utils/helper';
-const { HttpsProxyAgent } = require('https-proxy-agent');
+import { parseCookie, createProxyAgent } from '../utils/helper';
 
 export class ZaloSticker implements INodeType {
 	description: INodeTypeDescription = {
@@ -70,7 +69,7 @@ export class ZaloSticker implements INodeType {
 
 		const zaloOptions: any = {};
 		if (proxy) {
-			zaloOptions.agent = new HttpsProxyAgent(proxy);
+			zaloOptions.agent = createProxyAgent(proxy);
 		}
 
 		const zalo = new Zalo(zaloOptions);

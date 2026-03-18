@@ -6,7 +6,7 @@ import {
 	NodeOperationError,
 } from 'n8n-workflow';
 import { Zalo } from 'zca-js';
-const { HttpsProxyAgent } = require('https-proxy-agent');
+import { createProxyAgent } from '../utils/helper';
 import axios from 'axios';
 
 export class ZaloLoginByQr implements INodeType {
@@ -84,7 +84,7 @@ export class ZaloLoginByQr implements INodeType {
 			};
 
 			if (proxy) {
-				zaloOptions.agent = new HttpsProxyAgent(proxy);
+				zaloOptions.agent = createProxyAgent(proxy);
 			}
 
 			let zalo: any;
@@ -103,7 +103,7 @@ export class ZaloLoginByQr implements INodeType {
 					const licenseKey = selectedCredential.licenseKey as string;
 
 					if (selectedCredential.proxy) {
-						zaloOptions.agent = new HttpsProxyAgent(selectedCredential.proxy as string);
+						zaloOptions.agent = createProxyAgent(selectedCredential.proxy as string);
 					}
 
 					await zalo.login({
