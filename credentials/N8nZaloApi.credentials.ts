@@ -14,9 +14,12 @@ import {
     properties: INodeProperties[] = [
       {
         displayName: 'API Key',
-        name: 'apiKey',  
+        name: 'apiKey',
         type: 'string',
         default: '',
+        typeOptions: {
+          password: true,
+        },
         description: 'The API key used to authenticate with the n8n API.',
         required:  true,
       },

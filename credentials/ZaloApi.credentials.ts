@@ -27,6 +27,9 @@ export class ZaloApi implements ICredentialType {
 			name: 'imei',
 			type: 'string',
 			default: '',
+			typeOptions: {
+				password: true,
+			},
 			description: 'IMEI identifier from Zalo login session',
 		},
 		{
