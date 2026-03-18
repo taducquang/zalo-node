@@ -4,58 +4,79 @@
   <meta charset="UTF-8">
   <title>Zalo Nodes cho n8n</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="description" content="Tài liệu Zalo Nodes cho n8n">
+  <meta name="description" content="Zalo Nodes cho n8n - Documentation">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary-color: linear-gradient(135deg, #F1EFEC, #123458, #030303);
-      --secondary-color: #1A1A1A;
-      --accent-color: #00C6FF;
-      --text-color: #333333;
-      --light-gray: #F5F7FA;
-      --border-color: #E4E7ED;
-      --shadow-color: rgba(0, 0, 0, 0.1);
+      --claude-bg: #FAF9F7;
+      --claude-surface: #FFFFFF;
+      --claude-primary: #C96442;
+      --claude-primary-hover: #A8543A;
+      --claude-text: #1A1A1A;
+      --claude-text-secondary: #6B6B6B;
+      --claude-border: #E8E5E0;
+      --claude-code-bg: #F3F1EE;
+      --claude-sidebar-bg: #F5F3F0;
+      --claude-accent: #C96442;
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
     }
 
     body {
-      font-family: 'Inter', sans-serif;
-      background: #fff !important;
-      color: var(--text-color);
-      line-height: 1.6;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--claude-bg) !important;
+      color: var(--claude-text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    /* Sidebar Styling */
+    /* Sidebar */
     .sidebar {
-      background: var(--light-gray) !important;
-      border-right: 1px solid var(--border-color);
-      padding: 2rem 0;
+      background: var(--claude-sidebar-bg) !important;
+      border-right: 1px solid var(--claude-border);
+      padding: 1.5rem 0;
     }
 
     .sidebar-nav {
-      padding: 0 1rem;
+      padding: 0 0.75rem;
     }
 
     .sidebar-nav li {
-      margin: 0.5rem 0;
+      margin: 0.25rem 0;
     }
 
     .sidebar-nav a {
-      color: var(--text-color);
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      transition: all 0.3s ease;
+      color: var(--claude-text-secondary);
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
+      transition: all 0.15s ease;
+      font-size: 0.9rem;
+      font-weight: 500;
+      display: block;
+      text-decoration: none;
     }
 
-    .sidebar ul li.active>a {
-      background: var(--primary-color);
-      border: unset;
+    .sidebar ul li.active > a {
+      background: var(--claude-primary);
+      border: none;
       color: white;
+      font-weight: 600;
     }
 
     .sidebar-nav a:hover {
-      background: var(--primary-color);
+      background: var(--claude-border);
+      color: var(--claude-text);
+    }
+
+    .sidebar ul li.active > a:hover {
+      background: var(--claude-primary-hover);
       color: white;
     }
 
@@ -65,73 +86,138 @@
       float: left;
     }
 
-    /* Content Styling */
+    .app-name-link {
+      font-weight: 700 !important;
+      font-size: 1.1rem !important;
+      color: var(--claude-text) !important;
+      letter-spacing: -0.02em;
+    }
+
+    /* Content */
     .content {
-      background: #fff !important;
-      padding: 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
+      background: var(--claude-bg) !important;
+      padding: 2.5rem 3rem;
     }
 
     .markdown-section {
-      max-width: 800px;
+      max-width: 780px;
       margin: 0 auto;
     }
 
     .markdown-section h1 {
-      color: var(--primary-color);
-      font-size: 2.5rem;
-      margin-bottom: 2rem;
+      color: var(--claude-text);
+      font-size: 2.25rem;
+      margin-bottom: 1.5rem;
       font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
     }
 
     .markdown-section h2 {
-      color: var(--secondary-color);
-      font-size: 2rem;
-      margin: 2rem 0 1rem;
+      color: var(--claude-text);
+      font-size: 1.6rem;
+      margin: 2.5rem 0 1rem;
       font-weight: 600;
+      letter-spacing: -0.02em;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--claude-border);
     }
 
     .markdown-section h3 {
-      color: var(--secondary-color);
-      font-size: 1.5rem;
-      margin: 1.5rem 0 1rem;
+      color: var(--claude-text);
+      font-size: 1.25rem;
+      margin: 1.75rem 0 0.75rem;
       font-weight: 600;
+      letter-spacing: -0.01em;
     }
 
     .markdown-section p {
       margin-bottom: 1rem;
+      color: var(--claude-text);
     }
 
-    /* Code Block Styling */
-    pre {
-      background: var(--light-gray);
+    .markdown-section a {
+      color: var(--claude-primary);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+
+    .markdown-section a:hover {
+      border-bottom-color: var(--claude-primary);
+    }
+
+    .markdown-section strong {
+      font-weight: 600;
+    }
+
+    .markdown-section blockquote {
+      border-left: 3px solid var(--claude-primary);
+      padding: 0.75rem 1.25rem;
+      margin: 1.5rem 0;
+      background: var(--claude-code-bg);
+      border-radius: 0 8px 8px 0;
+      color: var(--claude-text-secondary);
+    }
+
+    .markdown-section table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 1.5rem 0;
       border-radius: 8px;
-      padding: 1.5rem;
-      box-shadow: 0 2px 4px var(--shadow-color);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .markdown-section table th {
+      background: var(--claude-sidebar-bg);
+      font-weight: 600;
+      text-align: left;
+      padding: 0.75rem 1rem;
+      border-bottom: 2px solid var(--claude-border);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: var(--claude-text-secondary);
+    }
+
+    .markdown-section table td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--claude-border);
+    }
+
+    .markdown-section table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .markdown-section table tr:hover td {
+      background: var(--claude-code-bg);
+    }
+
+    /* Code */
+    pre {
+      background: var(--claude-code-bg) !important;
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--claude-border);
+      margin: 1.5rem 0;
     }
 
     code {
-      font-family: 'Fira Code', monospace;
-      background: var(--light-gray);
-      padding: 0.2rem 0.4rem;
+      font-family: 'Fira Code', 'SF Mono', 'Cascadia Code', 'Consolas', monospace;
+      font-size: 0.875rem;
+    }
+
+    :not(pre) > code {
+      background: var(--claude-code-bg);
+      padding: 0.15rem 0.4rem;
       border-radius: 4px;
+      color: var(--claude-primary);
+      font-size: 0.85em;
     }
 
-    /* Search Bar Styling */
-    .search {
-      background: #fff !important;
-      padding: 1rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px var(--shadow-color);
-    }
-
-    .search input {
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      padding: 0.5rem 1rem;
-    }
-
+    /* Search */
     .search {
       display: none;
     }
@@ -139,22 +225,33 @@
     input[type="search"] {
       display: none;
     }
-    /* Responsive Design */
+
+    /* Lists */
+    .markdown-section ul,
+    .markdown-section ol {
+      padding-left: 1.5rem;
+    }
+
+    .markdown-section li {
+      margin: 0.5rem 0;
+    }
+
+    /* Responsive */
     @media (max-width: 768px) {
       .content {
-        padding: 1rem;
+        padding: 1.5rem 1rem;
       }
 
       .markdown-section h1 {
-        font-size: 2rem;
-      }
-
-      .markdown-section h2 {
         font-size: 1.75rem;
       }
 
+      .markdown-section h2 {
+        font-size: 1.35rem;
+      }
+
       .markdown-section h3 {
-        font-size: 1.25rem;
+        font-size: 1.1rem;
       }
     }
   </style>
@@ -174,7 +271,7 @@
         noData: 'Khong tim thay ket qua!',
         depth: 6
       },
-      themeColor: '#0068FF',
+      themeColor: '#C96442',
       auto2top: true,
       coverpage: false,
       loadNavbar: false,
