@@ -5,15 +5,6 @@ Node dành riêng cho n8n này được thiết kế hoạt động hoàn toàn 
 
 Node này mô phỏng trình duyệt để tương tác trực tiếp với Zalo Web, cho phép tự động hóa liền mạch ngay trong n8n. Đây là dự án mã nguồn mở, mở rộng cơ hội cho cộng đồng cùng đóng góp ý kiến và phát triển thêm các tính năng mới, nhằm xây dựng hệ thống tự động hóa Zalo tiên tiến, hiệu quả và an toàn hơn.
 
-## Buy me a coffee
-Nếu **node** này giúp bạn tiết kiệm thời gian hoặc giải quyết được vấn đề khó nhằn, hãy cân nhắc ủng hộ tôi một ☕ (Buy me a coffee) hoặc đơn giản là nhấn **★ Star** cho dự án.  
-Sự động viên nhỏ ấy sẽ tiếp thêm năng lượng để mình tiếp tục duy trì, cập nhật và phát triển thêm nhiều tính năng hữu ích hơn nữa.  
-Cám ơn bạn rất nhiều! 💛
-
-![Alt text](qr.png)
-## Tác giả
-- Dương Đình Trung - ChickenAI Team
-
 ## Hướng dẫn cài đặt node này:
 
 **Community Nodes (Khuyến nghị)**
