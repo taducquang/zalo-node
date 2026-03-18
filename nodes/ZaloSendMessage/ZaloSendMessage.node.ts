@@ -235,6 +235,7 @@ export class ZaloSendMessage implements INodeType {
 		}
 
 		for (let i = 0; i < items.length; i++) {
+			const tempFiles: string[] = [];
 			try {
 				// Get parameters
 				const threadId = this.getNodeParameter('threadId', i) as string;
@@ -285,6 +286,7 @@ export class ZaloSendMessage implements INodeType {
 								const fileData = await saveFile(url);
 								if (fileData) {
 									messageContent.attachments.push(fileData);
+									tempFiles.push(fileData);
 								}
 							}
 						}
@@ -322,14 +324,6 @@ export class ZaloSendMessage implements INodeType {
 				// Send message
 				const response = await api.sendMessage(messageContent, threadId, type);
 
-				//Remove temp img
-				if (messageContent.attachments && messageContent.attachments.length > 0){
-					for (const attachment of messageContent.attachments) {
-						this.logger.info(`Remove attachment: ${attachment}`);
-
-						removeFile(attachment)
-					}
-				}
 				this.logger.info('Message sent successfully', { threadId, type });
 
 
@@ -342,10 +336,10 @@ export class ZaloSendMessage implements INodeType {
 						messageContent,
 					},
 				});
-				
+
 			} catch (error) {
 				this.logger.error('Error sending Zalo message:', error);
-				
+
 				if (this.continueOnFail()) {
 					returnData.push({
 						json: {
@@ -355,6 +349,11 @@ export class ZaloSendMessage implements INodeType {
 					});
 				} else {
 					throw new NodeOperationError(this.getNode(), error as Error, { itemIndex: i });
+				}
+			} finally {
+				// Always clean up temp files, even on error
+				for (const file of tempFiles) {
+					removeFile(file);
 				}
 			}
 		}

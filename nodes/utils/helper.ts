@@ -19,6 +19,12 @@ export function parseCookie(cookieStr: string): any {
  */
 export async function saveFile(url: string): Promise<string | null> {
 	try {
+		// Validate URL scheme to prevent SSRF
+		const parsed = new URL(url);
+		if (!['http:', 'https:'].includes(parsed.protocol)) {
+			return null;
+		}
+
 		const n8nUserFolder = process.env.N8N_USER_FOLDER || path.join(os.homedir(), '.n8n');
 		const dataStoragePath = path.join(n8nUserFolder, 'temp_files');
 
