@@ -8,6 +8,7 @@ import {
 } from 'n8n-workflow';
 import { zaloPollOperations, zaloPollFields } from './ZaloPollDescription';
 import { API, Zalo } from 'zca-js';
+const { HttpsProxyAgent } = require('https-proxy-agent');
 
 let api: API | undefined;
 
@@ -64,11 +65,17 @@ export class ZaloPoll implements INodeType {
         const imeiFromCred = zaloCred.imei as string;
         const userAgentFromCred = zaloCred.userAgent as string;
 
+        const proxy = (zaloCred.proxy as string) || '';
+
         const cookie = cookieFromCred ?? items.find((x) => x.json.cookie)?.json.cookie as any;
         const imei = imeiFromCred ?? items.find((x) => x.json.imei)?.json.imei as string;
         const userAgent = userAgentFromCred ?? items.find((x) => x.json.userAgent)?.json.userAgent as string;
 
-        const zalo = new Zalo();
+        const zaloOptions: any = {};
+        if (proxy) {
+            zaloOptions.agent = new HttpsProxyAgent(proxy);
+        }
+        const zalo = new Zalo(zaloOptions);
         const _api = await zalo.login({ cookie, imei, userAgent });
         api = _api;
 
@@ -163,7 +170,7 @@ export class ZaloPoll implements INodeType {
                     }
                     //Lấy thông tin bình chọn
                     else if (operation === 'getPoll') {
-                        const poll_id = this.getNodeParameter('poll_id', i) as string;
+                        const poll_id = this.getNodeParameter('poll_id', i) as number;
                         // Log the parameters before sending
 				        this.logger.info(`Get poll with parameters: ${JSON.stringify(poll_id)}`);
 

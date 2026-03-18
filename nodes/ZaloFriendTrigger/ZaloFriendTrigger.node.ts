@@ -7,6 +7,7 @@ import {
 	IHookFunctions
 } from 'n8n-workflow';
 import { API, Zalo, FriendEventType, FriendEvent } from 'zca-js';
+const { HttpsProxyAgent } = require('https-proxy-agent');
 
 let api: API | undefined;
 let reconnectTimer: NodeJS.Timeout | undefined;
@@ -79,7 +80,12 @@ export class ZaloFriendTrigger implements INodeType {
 					const imeiFromCred = credentials.imei as string;
 					const userAgentFromCred = credentials.userAgent as string;
 
-					const zalo = new Zalo();
+					const proxy = (credentials.proxy as string) || '';
+					const zaloOptions: any = {};
+					if (proxy) {
+						zaloOptions.agent = new HttpsProxyAgent(proxy);
+					}
+					const zalo = new Zalo(zaloOptions);
 					api = await zalo.login({ cookie: cookieFromCred, imei: imeiFromCred, userAgent: userAgentFromCred });
 
 					if (!api) {
@@ -110,7 +116,7 @@ export class ZaloFriendTrigger implements INodeType {
 					});
 
 					// Start listening
-					api.listener.start();
+					api.listener.start({ retryOnClose: true });
 
 					const webhookData = this.getWorkflowStaticData('node');
 					webhookData.isConnected = true;

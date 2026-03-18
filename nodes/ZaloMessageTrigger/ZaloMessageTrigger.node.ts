@@ -7,7 +7,8 @@ import {
 	IHookFunctions,
 	IDataObject,
 } from 'n8n-workflow';
-import { API, Zalo, ThreadType } from 'zca-js';
+import { API, Zalo, Undo, GroupEvent } from 'zca-js';
+const { HttpsProxyAgent } = require('https-proxy-agent');
 
 let api: API | undefined;
 let reconnectTimer: NodeJS.Timeout | undefined;
@@ -50,16 +51,36 @@ export class ZaloMessageTrigger implements INodeType {
 				options: [
 					{
 						name: 'User Messages',
-						value: ThreadType.User,
+						value: 'message_user',
 						description: 'Lắng nghe tin nhắn từ người dùng',
 					},
 					{
 						name: 'Group Messages',
-						value: ThreadType.Group,
+						value: 'message_group',
 						description: 'Lắng nghe tin nhắn từ nhóm',
 					},
+					{
+						name: 'Undo (Thu hồi tin nhắn)',
+						value: 'undo',
+						description: 'Lắng nghe sự kiện thu hồi tin nhắn',
+					},
+					{
+						name: 'Typing',
+						value: 'typing',
+						description: 'Lắng nghe sự kiện đang gõ',
+					},
+					{
+						name: 'Reaction',
+						value: 'reaction',
+						description: 'Lắng nghe sự kiện reaction tin nhắn',
+					},
+					{
+						name: 'Group Events',
+						value: 'group_event',
+						description: 'Lắng nghe sự kiện nhóm (vào/ra/thay đổi)',
+					},
 				],
-				default: [ThreadType.User, ThreadType.Group],
+				default: ['message_user', 'message_group'],
 				required: true,
 				description: 'Types of messages to listen for',
 			},
@@ -94,7 +115,12 @@ export class ZaloMessageTrigger implements INodeType {
 					const userAgentFromCred = credentials.userAgent as string;
 
 					const selfListen = this.getNodeParameter('selfListen', 0) as boolean;
-					const zalo = new Zalo({ selfListen });
+					const proxy = (credentials.proxy as string) || '';
+					const zaloOptions: any = { selfListen };
+					if (proxy) {
+						zaloOptions.agent = new HttpsProxyAgent(proxy);
+					}
+					const zalo = new Zalo(zaloOptions);
 					api = await zalo.login({ cookie: cookieFromCred, imei: imeiFromCred, userAgent: userAgentFromCred });
 
 					if (!api) {
@@ -105,33 +131,80 @@ export class ZaloMessageTrigger implements INodeType {
 					}
                     const webhookUrl = this.getNodeWebhookUrl('default') as string;
                     console.log(webhookUrl);
-					// Add message event listener
-					api.listener.on('message', async (message) => {
+					const eventTypes = this.getNodeParameter('eventTypes', 0) as string[];
+
+					// Message events
+					api.listener.on('message', async (message: any) => {
+						const isUserMessage = !message.isGroup;
+						const isGroupMessage = message.isGroup;
+
+						if ((isUserMessage && eventTypes.includes('message_user')) ||
+							(isGroupMessage && eventTypes.includes('message_group'))) {
+							this.helpers.httpRequest({
+								method: 'POST',
+								url: webhookUrl,
+								body: { eventName: 'message', data: message },
+								headers: { 'Content-Type': 'application/json' },
+							});
+						}
 						const webhookData = this.getWorkflowStaticData('node');
-						// const eventTypes = webhookData.eventTypes as ThreadType[];
-                        this.helpers.httpRequest({
-                            method: 'POST',
-                            url: webhookUrl,
-                            body: {
-                                message: message,
-                            },
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                        });
-						// if (eventTypes.includes(message.type)) {
-                        //     console.log(message);
-							// Store message in static data to be processed by webhook method
 						webhookData.lastMessage = message;
-						// }
 					});
 
+					// Undo events
+					if (eventTypes.includes('undo')) {
+						api.listener.on('undo', async (undo: Undo) => {
+							this.helpers.httpRequest({
+								method: 'POST',
+								url: webhookUrl,
+								body: { eventName: 'undo', data: undo },
+								headers: { 'Content-Type': 'application/json' },
+							});
+						});
+					}
+
+					// Typing events
+					if (eventTypes.includes('typing')) {
+						api.listener.on('typing', async (typing: any) => {
+							this.helpers.httpRequest({
+								method: 'POST',
+								url: webhookUrl,
+								body: { eventName: 'typing', data: typing },
+								headers: { 'Content-Type': 'application/json' },
+							});
+						});
+					}
+
+					// Reaction events
+					if (eventTypes.includes('reaction')) {
+						api.listener.on('reaction', async (reaction: any) => {
+							this.helpers.httpRequest({
+								method: 'POST',
+								url: webhookUrl,
+								body: { eventName: 'reaction', data: reaction },
+								headers: { 'Content-Type': 'application/json' },
+							});
+						});
+					}
+
+					// Group events
+					if (eventTypes.includes('group_event')) {
+						api.listener.on('group_event', async (event: GroupEvent) => {
+							this.helpers.httpRequest({
+								method: 'POST',
+								url: webhookUrl,
+								body: { eventName: 'group_event', data: event },
+								headers: { 'Content-Type': 'application/json' },
+							});
+						});
+					}
+
 					// Start listening
-					api.listener.start();
+					api.listener.start({ retryOnClose: true });
 
 					const webhookData = this.getWorkflowStaticData('node');
 					webhookData.isConnected = true;
-					webhookData.eventTypes = this.getNodeParameter('eventTypes', 0) as ThreadType[];
+					webhookData.eventTypes = this.getNodeParameter('eventTypes', 0) as string[];
 
 					return true;
 				} catch (error) {

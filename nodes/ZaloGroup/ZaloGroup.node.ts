@@ -8,6 +8,7 @@ import {
 } from 'n8n-workflow';
 import { zaloGroupOperations, zaloGroupFields } from './ZaloGroupDescription';
 import { API, Zalo } from 'zca-js';
+const { HttpsProxyAgent } = require('https-proxy-agent');
 
 let api: API | undefined;
 
@@ -17,7 +18,7 @@ export class ZaloGroup implements INodeType {
 		name: 'zaloGroup',
 		icon: 'file:../shared/zalo.svg',
 		group: ['Zalo'],
-		version: 1,
+		version: 2,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
 		description: 'Quản lý nhóm Zalo',
 		defaults: {
@@ -68,7 +69,14 @@ export class ZaloGroup implements INodeType {
 		const imei = imeiFromCred ?? items.find((x) => x.json.imei)?.json.imei as string;
 		const userAgent = userAgentFromCred ?? items.find((x) => x.json.userAgent)?.json.userAgent as string;
 
-		const zalo = new Zalo();
+		const proxy = (zaloCred.proxy as string) || '';
+
+		const zaloOptions: any = {};
+		if (proxy) {
+			zaloOptions.agent = new HttpsProxyAgent(proxy);
+		}
+
+		const zalo = new Zalo(zaloOptions);
 		const _api = await zalo.login({ cookie, imei, userAgent });
 		api = _api;
 
@@ -249,6 +257,34 @@ export class ZaloGroup implements INodeType {
 							pairedItem: {
 								item: i,
 							},
+						});
+					}
+
+					// Lấy lịch sử chat nhóm
+					else if (operation === 'getGroupChatHistory') {
+						const groupId = this.getNodeParameter('groupId', i) as string;
+						const count = this.getNodeParameter('count', i, 50) as number;
+
+						const response = await api.getGroupChatHistory(groupId, count);
+
+						returnData.push({
+							json: response,
+							pairedItem: { item: i },
+						});
+					}
+
+					// Nâng cấp nhóm thành cộng đồng
+					else if (operation === 'upgradeGroupToCommunity') {
+						const groupId = this.getNodeParameter('groupId', i) as string;
+
+						const response = await api.upgradeGroupToCommunity(groupId);
+
+						returnData.push({
+							json: {
+								status: "Thành công",
+								response: response,
+							},
+							pairedItem: { item: i },
 						});
 					}
 				}

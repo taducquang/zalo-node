@@ -7,6 +7,7 @@ import {
 } from 'n8n-workflow';
 import { zaloUserOperations, zaloUserFields } from './ZaloUserDescription';
 import { API, ThreadType, Zalo } from 'zca-js';
+const { HttpsProxyAgent } = require('https-proxy-agent');
 
 let api: API | undefined;
 
@@ -16,7 +17,7 @@ export class ZaloUser implements INodeType {
 		name: 'zaloUser',
 		icon: 'file:../shared/zalo.svg',
 		group: ['Zalo'],
-		version: 1,
+		version: 2,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
 		description: 'Quản lý người dùng Zalo',
 		defaults: {
@@ -67,7 +68,14 @@ export class ZaloUser implements INodeType {
 		const imei = imeiFromCred ?? items.find((x) => x.json.imei)?.json.imei as string;
 		const userAgent = userAgentFromCred ?? items.find((x) => x.json.userAgent)?.json.userAgent as string;
 
-		const zalo = new Zalo();
+		const proxy = (zaloCred.proxy as string) || '';
+
+		const zaloOptions: any = {};
+		if (proxy) {
+			zaloOptions.agent = new HttpsProxyAgent(proxy);
+		}
+
+		const zalo = new Zalo(zaloOptions);
 		const _api = await zalo.login({ cookie, imei, userAgent });
 		api = _api;
 
@@ -171,7 +179,9 @@ export class ZaloUser implements INodeType {
 						const dob = this.getNodeParameter('dob', i) as any;
 						const gender = this.getNodeParameter('gender', i) as number;
 
-						const response = await api.updateProfile(name, dob, gender);
+						const response = await api.updateProfile({
+							profile: { name, dob, gender }
+						});
 
 						returnData.push({
 							json: {
@@ -269,6 +279,49 @@ export class ZaloUser implements INodeType {
 							pairedItem: {
 								item: i,
 							},
+						});
+					}
+
+					// Tìm kiếm người dùng theo username
+					else if (operation === 'findUserByUsername') {
+						const username = this.getNodeParameter('username', i) as string;
+						const response = await api.findUserByUsername(username);
+						returnData.push({
+							json: response,
+							pairedItem: { item: i },
+						});
+					}
+
+					// Cập nhật tiểu sử
+					else if (operation === 'updateProfileBio') {
+						const status = this.getNodeParameter('bio', i) as string;
+						const response = await api.updateProfileBio(status);
+						returnData.push({
+							json: {
+								status: "Thành công",
+								response: response,
+							},
+							pairedItem: { item: i },
+						});
+					}
+
+					// Lấy danh sách bạn thân
+					else if (operation === 'getCloseFriends') {
+						const response = await api.getCloseFriends();
+						returnData.push({
+							json: { friends: response },
+							pairedItem: { item: i },
+						});
+					}
+
+					// Tìm nhiều người dùng theo số điện thoại
+					else if (operation === 'getMultiUsersByPhones') {
+						const phones = this.getNodeParameter('phoneNumbers', i) as string;
+						const phoneList = phones.split(',').map(p => p.trim()).filter(p => p);
+						const response = await api.getMultiUsersByPhones(phoneList);
+						returnData.push({
+							json: response,
+							pairedItem: { item: i },
 						});
 					}
 				}

@@ -77,6 +77,30 @@ export const zaloUserOperations: INodeProperties[] = [
 				description: 'Thu hồi tin nhắn',
 				action: 'Thu hồi tin nhắn',
 			},
+			{
+				name: 'Tìm kiếm theo username',
+				value: 'findUserByUsername',
+				description: 'Tìm kiếm người dùng theo username',
+				action: 'Tìm kiếm theo username',
+			},
+			{
+				name: 'Cập nhật tiểu sử',
+				value: 'updateProfileBio',
+				description: 'Cập nhật tiểu sử cá nhân',
+				action: 'Cập nhật tiểu sử',
+			},
+			{
+				name: 'Lấy danh sách bạn thân',
+				value: 'getCloseFriends',
+				description: 'Lấy danh sách bạn thân',
+				action: 'Lấy danh sách bạn thân',
+			},
+			{
+				name: 'Tìm nhiều người theo SĐT',
+				value: 'getMultiUsersByPhones',
+				description: 'Tìm nhiều người dùng theo số điện thoại',
+				action: 'Tìm nhiều người theo SĐT',
+			},
 		],
 		default: 'getUserInfo',
 	},
@@ -408,5 +432,53 @@ export const zaloUserFields: INodeProperties[] = [
 		},
 		default: 50,
 		description: 'Số lượng kết quả tối đa',
+	},
+
+	// Find User By Username
+	{
+		displayName: 'Username',
+		name: 'username',
+		type: 'string',
+		required: true,
+		displayOptions: {
+			show: {
+				resource: ['zaloUser'],
+				operation: ['findUserByUsername'],
+			},
+		},
+		default: '',
+		description: 'Username của người dùng cần tìm kiếm',
+	},
+
+	// Update Profile Bio
+	{
+		displayName: 'Tiểu Sử',
+		name: 'bio',
+		type: 'string',
+		required: true,
+		displayOptions: {
+			show: {
+				resource: ['zaloUser'],
+				operation: ['updateProfileBio'],
+			},
+		},
+		default: '',
+		description: 'Nội dung tiểu sử cá nhân',
+	},
+
+	// Get Multi Users By Phones
+	{
+		displayName: 'Danh Sách Số Điện Thoại',
+		name: 'phoneNumbers',
+		type: 'string',
+		required: true,
+		displayOptions: {
+			show: {
+				resource: ['zaloUser'],
+				operation: ['getMultiUsersByPhones'],
+			},
+		},
+		default: '',
+		description: 'Danh sách số điện thoại, phân cách bằng dấu phẩy',
 	},
 ];

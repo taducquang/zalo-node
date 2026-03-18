@@ -44,3 +44,20 @@ export function removeFile(filePath: string): void {
 		console.error('Lỗi khi xoá file:', error);
 	}
 }
+
+/**
+ * Simple image metadata getter (fallback without sharp)
+ * Returns null to let zca-js handle images without metadata
+ */
+export async function getImageMetadata(filePath: string): Promise<{ width: number; height: number; size: number } | null> {
+	try {
+		const stats = fs.statSync(filePath);
+		return {
+			width: 0,
+			height: 0,
+			size: stats.size,
+		};
+	} catch {
+		return null;
+	}
+}

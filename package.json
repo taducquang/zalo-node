@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-zalo-tools",
-	"version": "0.5.10",
+	"version": "0.6.0",
 	"description": "Các node hỗ trợ Zalo cho n8n",
 	"keywords": [
 		"n8n-community-node-package",
@@ -48,7 +48,8 @@
 			"dist/nodes/ZaloMessageTrigger/ZaloMessageTrigger.node.js",
 			"dist/nodes/ZaloFriendTrigger/ZaloFriendTrigger.node.js",
 			"dist/nodes/ZaloPoll/ZaloPoll.node.js",
-			"dist/nodes/ZaloTag/ZaloTag.node.js"
+			"dist/nodes/ZaloTag/ZaloTag.node.js",
+			"dist/nodes/ZaloSticker/ZaloSticker.node.js"
 		]
 	},
 	"devDependencies": {
@@ -70,6 +71,7 @@
 	},
 	"dependencies": {
 		"axios": "^1.8.4",
+		"https-proxy-agent": "^8.0.0",
 		"pnpm": "^10.6.5",
 		"zca-js": "^2.1.2"
 	}

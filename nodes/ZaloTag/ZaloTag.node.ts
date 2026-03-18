@@ -1,5 +1,6 @@
 import { INodeType, INodeTypeDescription, IExecuteFunctions, INodeExecutionData, NodeApiError } from 'n8n-workflow';
 import { API, Zalo } from 'zca-js';
+const { HttpsProxyAgent } = require('https-proxy-agent');
 
 let api: API | undefined;
 
@@ -54,8 +55,15 @@ export class ZaloTag implements INodeType {
         const imeiFromCred = zaloCred.imei as string;
         const userAgentFromCred = zaloCred.userAgent as string;
 
+        const proxy = (zaloCred.proxy as string) || '';
+
+        const zaloOptions: any = {};
+        if (proxy) {
+            zaloOptions.agent = new HttpsProxyAgent(proxy);
+        }
+
         try {
-            const zalo = new Zalo();
+            const zalo = new Zalo(zaloOptions);
             api = await zalo.login({
                 cookie: cookieFromCred,
                 imei: imeiFromCred,

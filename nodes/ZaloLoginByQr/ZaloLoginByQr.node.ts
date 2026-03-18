@@ -6,6 +6,7 @@ import {
 	NodeOperationError,
 } from 'n8n-workflow';
 import { Zalo } from 'zca-js';
+const { HttpsProxyAgent } = require('https-proxy-agent');
 import * as path from 'path';
 import axios from 'axios';
 
@@ -95,7 +96,7 @@ export class ZaloLoginByQr implements INodeType {
 			};
 
 			if (proxy) {
-				zaloOptions.proxy = proxy;
+				zaloOptions.agent = new HttpsProxyAgent(proxy);
 			}
 
 			// Initialize Zalo
@@ -136,7 +137,7 @@ export class ZaloLoginByQr implements INodeType {
 					// Check if we have a proxy in the credential
 					if (selectedCredential.proxy) {
 						console.error('Using proxy from credential:', selectedCredential.proxy);
-						zaloOptions.proxy = selectedCredential.proxy as string;
+						zaloOptions.agent = new HttpsProxyAgent(selectedCredential.proxy as string);
 					}
 
 					// Log in with the credentials
@@ -226,7 +227,7 @@ export class ZaloLoginByQr implements INodeType {
 
 				try {
 					// @ts-ignore - Ignore type checking for loginQR method
-					let api = await zalo.loginQR(null, (qrEvent: any) => {
+					let api = await zalo.loginQR({}, (qrEvent: any) => {
 						console.error('Received QR event type:', qrEvent ? qrEvent.type : 'no event');
 
 						// Handle different event types based on the LoginQRCallbackEventType enum
@@ -401,19 +402,19 @@ export class ZaloLoginByQr implements INodeType {
 					api.listener.start();
 
 					// Set up event listeners after getting the API
-					api.listener.onConnected(() => {
+					api.listener.on('connected', () => {
 						console.error("=== ZALO SDK CONNECTED ===");
 						// Get context after successful connection
 						setupEventListeners(api);
 					});
 
 					// Listen for errors
-					api.listener.onError((error: any) => {
+					api.listener.on('error', (error: any) => {
 						console.error("=== ZALO ERROR ===", error);
 					});
 
 					// Listen for messages (might contain login information)
-					api.listener.onMessage((message: any) => {
+					api.listener.on('message', (message: any) => {
 						console.error("=== ZALO MESSAGE RECEIVED ===");
 						console.error("Message type:", message.type);
 						console.error("Message content:", JSON.stringify(message).substring(0, 200) + '...');

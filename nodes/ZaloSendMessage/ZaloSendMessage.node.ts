@@ -6,6 +6,7 @@ import {
 	NodeOperationError
 } from 'n8n-workflow';
 import { API, ThreadType, Zalo } from 'zca-js';
+const { HttpsProxyAgent } = require('https-proxy-agent');
 import { saveFile, removeFile } from '../utils/helper';
 
 let api: API | undefined;
@@ -16,7 +17,7 @@ export class ZaloSendMessage implements INodeType {
 		name: 'zaloSendMessage',
 		icon: 'file:../shared/zalo.svg',
 		group: ['Zalo'],
-		version: 4,
+		version: 5,
 		description: 'Gửi tin nhắn qua API Zalo sử dụng kết nối đăng nhập bằng cookie',
 		defaults: {
 			name: 'Zalo Send Message',
@@ -190,6 +191,13 @@ export class ZaloSendMessage implements INodeType {
 				],
 				description: 'Một hoặc nhiều ảnh đính kèm để gửi',
 			},
+			{
+				displayName: 'Styles (JSON)',
+				name: 'stylesJson',
+				type: 'string',
+				default: '',
+				description: 'Định dạng tin nhắn dạng JSON array. Ví dụ: [{"type":"bold","start":0,"len":5}]',
+			},
 		],
 	};
 
@@ -206,7 +214,14 @@ export class ZaloSendMessage implements INodeType {
 
 		// Initialize Zalo API
 		try {
-			const zalo = new Zalo();
+			const proxy = (zaloCred.proxy as string) || '';
+
+			const zaloOptions: any = {};
+			if (proxy) {
+				zaloOptions.agent = new HttpsProxyAgent(proxy);
+			}
+
+			const zalo = new Zalo(zaloOptions);
 			api = await zalo.login({ 
 				cookie: cookieFromCred,
 				imei: imeiFromCred, 
@@ -264,13 +279,26 @@ export class ZaloSendMessage implements INodeType {
 				if (attachments && attachments.attachment && attachments.attachment.length > 0) {
 					messageContent.attachments = [];
 					for (const attachment of attachments.attachment) {
-						let fileData;
 						if (attachment.type === 'url') {
-							 fileData = await saveFile(attachment.imageUrl);
+							// Support comma-separated URLs
+							const urls = (attachment.imageUrl as string).split(',').map(u => u.trim()).filter(u => u);
+							for (const url of urls) {
+								const fileData = await saveFile(url);
+								if (fileData) {
+									messageContent.attachments.push(fileData);
+								}
+							}
 						}
-						
+					}
+				}
 
-						messageContent.attachments.push(fileData);
+				// Add styles if specified
+				const stylesJson = this.getNodeParameter('stylesJson', i, '') as string;
+				if (stylesJson && stylesJson.trim()) {
+					try {
+						messageContent.styles = JSON.parse(stylesJson);
+					} catch (e) {
+						this.logger.warn('Invalid styles JSON, skipping styles');
 					}
 				}
 
@@ -283,13 +311,7 @@ export class ZaloSendMessage implements INodeType {
 
 				//Send typing event
 				try {
-					const recipentObj = {
-						id : threadId,
-						type: type
-					}
-					const result = await api.sendTypingEvent(recipentObj.id, {
-						type: recipentObj.type
-					});
+					const result = await api.sendTypingEvent(threadId, type);
 					if (!!result) {
 						this.logger.info("Send! typing event")
 					}

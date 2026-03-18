@@ -73,6 +73,18 @@ export const zaloGroupOperations: INodeProperties[] = [
 				description: 'Tạo ghi chú trong nhóm',
 				action: 'Tạo Ghi Chú',
 			},
+			{
+				name: 'Lấy Lịch Sử Chat Nhóm',
+				value: 'getGroupChatHistory',
+				description: 'Lấy lịch sử tin nhắn của nhóm',
+				action: 'Lấy Lịch Sử Chat Nhóm',
+			},
+			{
+				name: 'Nâng Cấp Thành Cộng Đồng',
+				value: 'upgradeGroupToCommunity',
+				description: 'Nâng cấp nhóm thành cộng đồng',
+				action: 'Nâng Cấp Thành Cộng Đồng',
+			},
 		],
 		default: 'createGroup',
 	},
@@ -384,5 +396,55 @@ export const zaloGroupFields: INodeProperties[] = [
 			},
 		},
 		description: 'Ghim ghi chú lên đầu nhóm',
+	},
+
+	/* -------------------------------------------------------------------------- */
+	/*                        zaloGroup:getGroupChatHistory                       */
+	/* -------------------------------------------------------------------------- */
+	{
+		displayName: 'ID Nhóm',
+		name: 'groupId',
+		type: 'string',
+		required: true,
+		default: '',
+		displayOptions: {
+			show: {
+				resource: ['zaloGroup'],
+				operation: ['getGroupChatHistory'],
+			},
+		},
+		description: 'ID của nhóm cần lấy lịch sử chat',
+	},
+	{
+		displayName: 'Số Lượng Tin Nhắn',
+		name: 'count',
+		type: 'number',
+		default: 50,
+		required: false,
+		displayOptions: {
+			show: {
+				resource: ['zaloGroup'],
+				operation: ['getGroupChatHistory'],
+			},
+		},
+		description: 'Số lượng tin nhắn cần lấy (mặc định 50)',
+	},
+
+	/* -------------------------------------------------------------------------- */
+	/*                     zaloGroup:upgradeGroupToCommunity                      */
+	/* -------------------------------------------------------------------------- */
+	{
+		displayName: 'ID Nhóm',
+		name: 'groupId',
+		type: 'string',
+		required: true,
+		default: '',
+		displayOptions: {
+			show: {
+				resource: ['zaloGroup'],
+				operation: ['upgradeGroupToCommunity'],
+			},
+		},
+		description: 'ID của nhóm cần nâng cấp thành cộng đồng',
 	},
 ]; 
