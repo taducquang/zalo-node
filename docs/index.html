@@ -2,26 +2,33 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Zalo Nodes cho n8n</title>
+  <title>n8n-nodes-zalo-node</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="description" content="Zalo Nodes cho n8n - Documentation">
+  <meta name="description" content="n8n-nodes-zalo-node - Documentation">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --claude-bg: #FAF9F7;
-      --claude-surface: #FFFFFF;
-      --claude-primary: #C96442;
-      --claude-primary-hover: #A8543A;
-      --claude-text: #1A1A1A;
-      --claude-text-secondary: #6B6B6B;
-      --claude-border: #E8E5E0;
-      --claude-code-bg: #F3F1EE;
-      --claude-sidebar-bg: #F5F3F0;
-      --claude-accent: #C96442;
-      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+      --bg: #1a1a1a;
+      --bg-secondary: #232323;
+      --surface: #2a2a2a;
+      --surface-hover: #333333;
+      --primary: #d4a27a;
+      --primary-hover: #c48e62;
+      --primary-subtle: rgba(212, 162, 122, 0.12);
+      --text: #e8e4e0;
+      --text-secondary: #9a9590;
+      --text-muted: #6b6560;
+      --border: #3a3735;
+      --border-subtle: #2e2c2a;
+      --code-bg: #252220;
+      --sidebar-bg: #1e1e1e;
+      --sidebar-hover: #2a2826;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+      --radius: 10px;
+      --radius-sm: 6px;
     }
 
     * {
@@ -30,17 +37,17 @@
 
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: var(--claude-bg) !important;
-      color: var(--claude-text);
+      background: var(--bg) !important;
+      color: var(--text);
       line-height: 1.7;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
 
-    /* Sidebar */
+    /* ─── Sidebar ─── */
     .sidebar {
-      background: var(--claude-sidebar-bg) !important;
-      border-right: 1px solid var(--claude-border);
+      background: var(--sidebar-bg) !important;
+      border-right: 1px solid var(--border-subtle);
       padding: 1.5rem 0;
     }
 
@@ -49,35 +56,60 @@
     }
 
     .sidebar-nav li {
-      margin: 0.25rem 0;
+      margin: 2px 0;
     }
 
     .sidebar-nav a {
-      color: var(--claude-text-secondary);
-      padding: 0.5rem 0.75rem;
-      border-radius: 8px;
-      transition: all 0.15s ease;
+      color: var(--text-secondary);
+      padding: 0.5rem 0.85rem;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       font-size: 0.9rem;
       font-weight: 500;
       display: block;
       text-decoration: none;
+      position: relative;
+      overflow: hidden;
     }
 
-    .sidebar ul li.active > a {
-      background: var(--claude-primary);
-      border: none;
-      color: white;
-      font-weight: 600;
+    .sidebar-nav a::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%) scaleY(0);
+      width: 3px;
+      height: 60%;
+      background: var(--primary);
+      border-radius: 0 2px 2px 0;
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .sidebar-nav a:hover {
-      background: var(--claude-border);
-      color: var(--claude-text);
+      background: var(--sidebar-hover);
+      color: var(--text);
+      padding-left: 1.1rem;
+    }
+
+    .sidebar-nav a:hover::before {
+      transform: translateY(-50%) scaleY(1);
+    }
+
+    .sidebar ul li.active > a {
+      background: var(--primary-subtle);
+      border: none;
+      color: var(--primary);
+      font-weight: 600;
+      padding-left: 1.1rem;
+    }
+
+    .sidebar ul li.active > a::before {
+      transform: translateY(-50%) scaleY(1);
     }
 
     .sidebar ul li.active > a:hover {
-      background: var(--claude-primary-hover);
-      color: white;
+      background: rgba(212, 162, 122, 0.18);
+      color: var(--primary);
     }
 
     .app-sub-sidebar li:before {
@@ -87,15 +119,27 @@
     }
 
     .app-name-link {
-      font-weight: 700 !important;
-      font-size: 1.1rem !important;
-      color: var(--claude-text) !important;
+      font-weight: 800 !important;
+      font-size: 1rem !important;
+      color: var(--text) !important;
       letter-spacing: -0.02em;
+      padding: 0.5rem 0.85rem !important;
     }
 
-    /* Content */
+    /* Section labels in sidebar */
+    .sidebar-nav > ul > li > p {
+      color: var(--text-muted);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 1rem 0.85rem 0.25rem;
+      margin: 0;
+    }
+
+    /* ─── Content ─── */
     .content {
-      background: var(--claude-bg) !important;
+      background: var(--bg) !important;
       padding: 2.5rem 3rem;
     }
 
@@ -104,86 +148,99 @@
       margin: 0 auto;
     }
 
+    /* h1 — Page title */
     .markdown-section h1 {
-      color: var(--claude-text);
-      font-size: 2.25rem;
-      margin-bottom: 1.5rem;
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      line-height: 1.2;
+      color: var(--text);
+      font-size: 2.5rem;
+      margin-bottom: 1.75rem;
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.15;
     }
 
+    /* h2 — Section header — large with border */
     .markdown-section h2 {
-      color: var(--claude-text);
-      font-size: 1.6rem;
-      margin: 2.5rem 0 1rem;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid var(--claude-border);
+      color: var(--text);
+      font-size: 1.7rem;
+      margin: 3rem 0 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.3;
     }
 
+    /* h3 — Subsection — clearly smaller, no border, muted accent */
     .markdown-section h3 {
-      color: var(--claude-text);
-      font-size: 1.25rem;
-      margin: 1.75rem 0 0.75rem;
+      color: var(--primary);
+      font-size: 1.1rem;
+      margin: 2rem 0 0.6rem;
       font-weight: 600;
-      letter-spacing: -0.01em;
+      letter-spacing: 0;
+      line-height: 1.4;
     }
 
     .markdown-section p {
       margin-bottom: 1rem;
-      color: var(--claude-text);
+      color: var(--text);
     }
 
     .markdown-section a {
-      color: var(--claude-primary);
+      color: var(--primary);
       text-decoration: none;
       border-bottom: 1px solid transparent;
-      transition: border-color 0.15s;
+      transition: border-color 0.2s, color 0.2s;
     }
 
     .markdown-section a:hover {
-      border-bottom-color: var(--claude-primary);
+      border-bottom-color: var(--primary);
+      color: var(--primary-hover);
     }
 
     .markdown-section strong {
       font-weight: 600;
+      color: var(--text);
     }
 
     .markdown-section blockquote {
-      border-left: 3px solid var(--claude-primary);
+      border-left: 3px solid var(--primary);
       padding: 0.75rem 1.25rem;
       margin: 1.5rem 0;
-      background: var(--claude-code-bg);
-      border-radius: 0 8px 8px 0;
-      color: var(--claude-text-secondary);
+      background: var(--surface);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      color: var(--text-secondary);
     }
 
+    .markdown-section blockquote p {
+      color: var(--text-secondary);
+    }
+
+    /* ─── Tables ─── */
     .markdown-section table {
       border-collapse: collapse;
       width: 100%;
       margin: 1.5rem 0;
-      border-radius: 8px;
+      border-radius: var(--radius);
       overflow: hidden;
-      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
     }
 
     .markdown-section table th {
-      background: var(--claude-sidebar-bg);
+      background: var(--surface);
       font-weight: 600;
       text-align: left;
       padding: 0.75rem 1rem;
-      border-bottom: 2px solid var(--claude-border);
-      font-size: 0.85rem;
+      border-bottom: 2px solid var(--border);
+      font-size: 0.8rem;
       text-transform: uppercase;
-      letter-spacing: 0.03em;
-      color: var(--claude-text-secondary);
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
     }
 
     .markdown-section table td {
       padding: 0.75rem 1rem;
-      border-bottom: 1px solid var(--claude-border);
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text);
     }
 
     .markdown-section table tr:last-child td {
@@ -191,67 +248,120 @@
     }
 
     .markdown-section table tr:hover td {
-      background: var(--claude-code-bg);
+      background: var(--surface);
     }
 
-    /* Code */
+    /* ─── Code ─── */
     pre {
-      background: var(--claude-code-bg) !important;
-      border-radius: 10px;
+      background: var(--code-bg) !important;
+      border-radius: var(--radius);
       padding: 1.25rem 1.5rem;
-      box-shadow: var(--shadow-sm);
-      border: 1px solid var(--claude-border);
+      border: 1px solid var(--border);
       margin: 1.5rem 0;
     }
 
     code {
       font-family: 'Fira Code', 'SF Mono', 'Cascadia Code', 'Consolas', monospace;
       font-size: 0.875rem;
+      color: var(--text);
     }
 
     :not(pre) > code {
-      background: var(--claude-code-bg);
-      padding: 0.15rem 0.4rem;
+      background: var(--surface);
+      padding: 0.2rem 0.45rem;
       border-radius: 4px;
-      color: var(--claude-primary);
+      color: var(--primary);
       font-size: 0.85em;
+      border: 1px solid var(--border-subtle);
     }
 
-    /* Search */
+    /* ─── Search ─── */
     .search {
-      display: none;
+      margin-bottom: 1rem;
     }
 
-    input[type="search"] {
-      display: none;
+    .search .input-wrap {
+      background: var(--surface) !important;
+      border: 1px solid var(--border) !important;
+      border-radius: var(--radius-sm) !important;
     }
 
-    /* Lists */
+    .search input[type="search"] {
+      background: transparent !important;
+      color: var(--text) !important;
+      font-family: 'Inter', sans-serif !important;
+    }
+
+    .search input::placeholder {
+      color: var(--text-muted) !important;
+    }
+
+    .search .matching-post {
+      background: var(--surface) !important;
+      border-bottom: 1px solid var(--border-subtle) !important;
+    }
+
+    .search .matching-post:hover {
+      background: var(--surface-hover) !important;
+    }
+
+    /* ─── Lists ─── */
     .markdown-section ul,
     .markdown-section ol {
       padding-left: 1.5rem;
     }
 
     .markdown-section li {
-      margin: 0.5rem 0;
+      margin: 0.4rem 0;
+      color: var(--text);
     }
 
-    /* Responsive */
+    .markdown-section li::marker {
+      color: var(--text-muted);
+    }
+
+    /* ─── Horizontal rule ─── */
+    .markdown-section hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 2rem 0;
+    }
+
+    /* ─── Scrollbar ─── */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--text-muted);
+    }
+
+    /* ─── Responsive ─── */
     @media (max-width: 768px) {
       .content {
         padding: 1.5rem 1rem;
       }
 
       .markdown-section h1 {
-        font-size: 1.75rem;
+        font-size: 1.85rem;
       }
 
       .markdown-section h2 {
-        font-size: 1.35rem;
+        font-size: 1.4rem;
       }
 
       .markdown-section h3 {
-        font-size: 1.1rem;
+        font-size: 1rem;
       }
     }
   </style>
@@ -260,7 +370,7 @@
   <div id="app"></div>
   <script>
     window.$docsify = {
-      name: 'N8N-NODES-ZALO-TOOLS',
+      name: 'n8n-nodes-zalo-node',
       repo: 'https://github.com/taducquang/zalo-node',
       loadSidebar: 'sidebar.md',
       subMaxLevel: 2,
@@ -271,7 +381,7 @@
         noData: 'Không tìm thấy kết quả!',
         depth: 6
       },
-      themeColor: '#C96442',
+      themeColor: '#d4a27a',
       auto2top: true,
       coverpage: false,
       loadNavbar: false,

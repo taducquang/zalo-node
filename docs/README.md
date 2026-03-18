@@ -1,6 +1,6 @@
-#  N8N-NODES-ZALO-TOOLS
+#  n8n-nodes-zalo-node
 
-Nodes-Zalo-Tools cho n8n là một bộ công cụ cho phép bạn tích hợp các tính năng của Zalo cá nhân vào quy trình làm việc của n8n. Bộ công cụ này bao gồm các node để tương tác với Zalo qua nhiều chức năng.
+n8n-nodes-zalo-node cho n8n là một bộ công cụ cho phép bạn tích hợp các tính năng của Zalo cá nhân vào quy trình làm việc của n8n. Bộ công cụ này bao gồm các node để tương tác với Zalo qua nhiều chức năng.
 
 ## Tính năng
 - **Login Zalo Via QR**: Đăng nhập Zalo thông qua QR
