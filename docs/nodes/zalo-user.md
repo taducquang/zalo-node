@@ -1,109 +1,136 @@
 # Zalo User Node
 
-Node Zalo User cho phép bạn tương tác với API người dùng của Zalo, giúp quản lý thông tin người dùng, kết bạn và các cài đặt tài khoản.
+Node Zalo User cho phep ban tuong tac voi API nguoi dung cua Zalo, giup quan ly thong tin nguoi dung, ket ban va cac cai dat tai khoan.
 
-## Các Thao Tác
+## Cac Thao Tac
 
-### Chấp nhận lời mời kết bạn
-Chấp nhận lời mời kết bạn từ một người dùng khác.
+### Chap nhan loi moi ket ban
+Chap nhan loi moi ket ban tu mot nguoi dung khac.
 
-**Tham số:**
-- `User ID`: ID của người dùng cần chấp nhận lời mời kết bạn
+**Tham so:**
+- `User ID`: ID cua nguoi dung can chap nhan loi moi ket ban
 
-### Gửi lời mời kết bạn
-Gửi lời mời kết bạn đến một người dùng khác.
+### Gui loi moi ket ban
+Gui loi moi ket ban den mot nguoi dung khac.
 
-**Tham số:**
-- `User ID`: ID của người dùng cần gửi lời mời kết bạn
-- `Message`: Tin nhắn kèm theo lời mời kết bạn
+**Tham so:**
+- `User ID`: ID cua nguoi dung can gui loi moi ket ban
+- `Message`: Tin nhan kem theo loi moi ket ban
 
-### Chặn người dùng
-Chặn một người dùng khác.
+### Chan nguoi dung
+Chan mot nguoi dung khac.
 
-**Tham số:**
-- `User ID`: ID của người dùng cần chặn
+**Tham so:**
+- `User ID`: ID cua nguoi dung can chan
 
-### Bỏ chặn người dùng
-Bỏ chặn một người dùng đã bị chặn trước đó.
+### Bo chan nguoi dung
+Bo chan mot nguoi dung da bi chan truoc do.
 
-**Tham số:**
-- `User ID`: ID của người dùng cần bỏ chặn
+**Tham so:**
+- `User ID`: ID cua nguoi dung can bo chan
 
-### Đổi ảnh đại diện
-Thay đổi ảnh đại diện của tài khoản.
+### Thay doi cai dat tai khoan
+Cap nhat thong tin va cai dat cua tai khoan.
 
-**Tham số:**
-- `User ID`: ID của người dùng cần đổi ảnh đại diện
-- `File Path`: Đường dẫn đến file ảnh đại diện
+**Tham so:**
+- `Name`: Ten hien thi moi
+- `Date of Birth`: Ngay sinh (dinh dang YYYY-MM-DD)
+- `Gender`: Gioi tinh (1: Nam, 2: Nu, 3: Khac)
 
-### Thay đổi cài đặt tài khoản
-Cập nhật thông tin và cài đặt của tài khoản.
+### Lay thong tin nguoi dung
+Lay thong tin chi tiet cua mot nguoi dung.
 
-**Tham số:**
-- `Name`: Tên hiển thị mới
-- `Date of Birth`: Ngày sinh (định dạng YYYY-MM-DD)
-- `Gender`: Giới tính (1: Nam, 2: Nữ, 3: Khác)
-- `Language`: Ngôn ngữ (vi, en) - tùy chọn
+**Tham so:**
+- `User ID`: ID cua nguoi dung can lay thong tin
 
-### Lấy thông tin người dùng
-Lấy thông tin chi tiết của một người dùng.
+### Lay danh sach ban be
+Lay danh sach tat ca ban be cua tai khoan.
 
-**Tham số:**
-- `User ID`: ID của người dùng cần lấy thông tin
+**Tham so:**
+- `Limit`: So luong ban be toi da can lay (mac dinh: 50)
 
-### Lấy danh sách bạn bè
-Lấy danh sách tất cả bạn bè của tài khoản.
+### Tim kiem nguoi dung
+Tim kiem nguoi dung theo so dien thoai.
 
-**Tham số:**
-- `Limit`: Số lượng bạn bè tối đa cần lấy (mặc định: 50)
+**Tham so:**
+- `Phone Number`: So dien thoai can tim kiem
 
-### Tìm kiếm người dùng
-Tìm kiếm người dùng theo số điện thoại.
+### Doi ten goi nho
+Dat ten goi nho cho ban be.
 
-**Tham số:**
-- `Phone Number`: Số điện thoại cần tìm kiếm
-- `Limit`: Số lượng kết quả tối đa (mặc định: 50)
+**Tham so:**
+- `User ID`: ID cua ban be
+- `Alias Name`: Ten goi nho moi
 
-## Ví Dụ Sử Dụng
+### Thu hoi tin nhan
+Thu hoi (undo) mot tin nhan da gui.
 
-### Gửi lời mời kết bạn
+**Tham so:**
+- `Thread ID`: ID cua cuoc tro chuyen
+- `Thread Type`: Loai (User hoac Group)
+- `Message ID`: ID cua tin nhan can thu hoi
+- `Client Message ID`: Client message ID
+
+### Tim kiem nguoi dung theo username *(MỚI)*
+Tim kiem nguoi dung bang username Zalo.
+
+**Tham so:**
+- `Username`: Username cua nguoi dung can tim
+
+### Cap nhat tieu su *(MỚI)*
+Cap nhat tieu su (bio) cua tai khoan.
+
+**Tham so:**
+- `Bio`: Noi dung tieu su moi
+
+### Lay danh sach ban than *(MỚI)*
+Lay danh sach ban than (close friends).
+
+Khong can tham so.
+
+### Tim nhieu nguoi dung theo so dien thoai *(MỚI)*
+Tim nhieu nguoi dung cung luc bang danh sach so dien thoai.
+
+**Tham so:**
+- `Phone Numbers`: Danh sach so dien thoai, phan cach bang dau phay
+
+## Vi Du Su Dung
+
+### Gui loi moi ket ban
 ```typescript
 const userId = "123456789";
-const message = "Xin chào! Tôi muốn kết bạn với bạn.";
+const message = "Xin chao! Toi muon ket ban voi ban.";
 ```
 
-### Thay đổi cài đặt tài khoản
+### Thay doi cai dat tai khoan
 ```typescript
-const name = "Nguyễn Văn A";
+const name = "Nguyen Van A";
 const dob = "1990-01-01";
 const gender = 1; // 1: Nam
-const language = "vi";
 ```
 
-### Tìm kiếm người dùng
+### Tim kiem nguoi dung
 ```typescript
 const phoneNumber = "0987654321";
-const limit = 10;
 ```
 
-## Xử Lý Lỗi
+## Xu Ly Loi
 
-Node sẽ xử lý các lỗi phổ biến sau:
-- Lỗi ID người dùng không hợp lệ
-- Lỗi quyền truy cập
-- Lỗi định dạng dữ liệu
-- Lỗi kết nối mạng
+Node se xu ly cac loi pho bien sau:
+- Loi ID nguoi dung khong hop le
+- Loi quyen truy cap
+- Loi dinh dang du lieu
+- Loi ket noi mang
 
 ## Best Practices
 
-1. **Quản lý kết bạn:**
-   - Gửi tin nhắn cá nhân khi kết bạn
-   - Không gửi quá nhiều lời mời kết bạn trong thời gian ngắn
+1. **Quan ly ket ban:**
+   - Gui tin nhan ca nhan khi ket ban
+   - Khong gui qua nhieu loi moi ket ban trong thoi gian ngan
 
-2. **Cập nhật thông tin:**
-   - Sử dụng ảnh đại diện có kích thước phù hợp
-   - Cập nhật thông tin chính xác và đầy đủ
+2. **Cap nhat thong tin:**
+   - Cap nhat thong tin chinh xac va day du
 
-3. **Tìm kiếm người dùng:**
-   - Sử dụng số điện thoại chính xác
-   - Giới hạn số lượng kết quả tìm kiếm phù hợp
+3. **Tim kiem nguoi dung:**
+   - Su dung so dien thoai chinh xac
+   - Gioi han so luong ket qua tim kiem phu hop

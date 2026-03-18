@@ -5,21 +5,34 @@ Nodes-Zalo-Tools cho n8n là một bộ công cụ cho phép bạn tích hợp c
 ## Tính năng
 - **Login Zalo Via QR**: Đăng nhập Zalo thông qua QR
 
-- **Zalo Message Trigger**: Nhận tin nhắn trực tiếp
+- **Zalo Message Trigger**: Nhận tin nhắn trực tiếp (hỗ trợ undo, typing, reaction, group event)
 
-- **Zalo Send Message**: Gửi tin nhắn
+- **Zalo Friend Trigger**: Lắng nghe sự kiện kết bạn
+
+- **Zalo Send Message**: Gửi tin nhắn (hỗ trợ đính kèm file, nhiều URL, styles JSON)
 
 - **Zalo Group Node**: Quản lý nhóm Zalo
   - Tạo nhóm
   - Thêm/xóa thành viên
   - Thay đổi thông tin nhóm
   - Quản lý quyền thành viên
+  - Lấy lịch sử tin nhắn nhóm
+  - Nâng cấp nhóm thành cộng đồng
 
 - **Zalo User Node**: Quản lý tương tác người dùng
   - Gửi lời mời kết bạn
   - Chặn/bỏ chặn người dùng
   - Thay đổi thông tin cá nhân
-  - Tìm kiếm người dùng
+  - Tìm kiếm người dùng (theo SĐT hoặc username)
+  - Cập nhật tiểu sử
+  - Lấy danh sách bạn thân
+  - Tìm nhiều người dùng theo SĐT
+
+- **Zalo Poll Node**: Quản lý bình chọn trong nhóm
+
+- **Zalo Tag Node**: Quản lý thẻ (tag/label)
+
+- **Zalo Sticker Node**: Tìm kiếm và quản lý sticker
 
 ## Bắt đầu
 
@@ -28,11 +41,14 @@ Nodes-Zalo-Tools cho n8n là một bộ công cụ cho phép bạn tích hợp c
 
 ## Tài liệu Node
 
-- [Zalo OA Node](nodes/zalo-oa.md)
 - [Zalo Group Node](nodes/zalo-group.md)
 - [Zalo User Node](nodes/zalo-user.md)
+- [Zalo Send Message](nodes/zalo-send-message.md)
+- [Zalo Message Trigger](nodes/zalo-message-trigger.md)
+- [Zalo Poll Node](nodes/zalo-poll.md)
+- [Zalo Sticker Node](nodes/zalo-sticker.md)
 
 ## Hỗ trợ
 
-- [Báo cáo lỗi](https://github.com/ChickenAI/zalo-node) : https://github.com/ChickenAI/zalo-node
-- [Liên hệ hỗ trợ](mailto:trungduong13082000@gmail.com) : trungduong13082000@gmail.com
+- [Báo cáo lỗi](https://github.com/taducquang/zalo-node) : https://github.com/taducquang/zalo-node
+- [Liên hệ hỗ trợ](mailto:taducquangit@gmail.com) : taducquangit@gmail.com

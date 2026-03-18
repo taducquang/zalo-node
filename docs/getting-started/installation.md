@@ -1,108 +1,110 @@
-# Cài đặt
+# Cai dat
 
-# Cài đặt Zalo User Nodes
+# Cai dat Zalo User Nodes
 
-## Giới thiệu về Community Nodes
+## Gioi thieu ve Community Nodes
 
-Community Nodes là các nodes được phát triển bởi cộng đồng n8n. Zalo Nodes là một trong những community nodes này, cho phép bạn tích hợp và tự động hóa các tác vụ với Zalo.
+Community Nodes la cac nodes duoc phat trien boi cong dong n8n. Zalo Nodes la mot trong nhung community nodes nay, cho phep ban tich hop va tu dong hoa cac tac vu voi Zalo.
 
-### Lưu ý quan trọng
+### Luu y quan trong
 
-- Zalo User Nodes chỉ khả dụng trên các phiên bản n8n tự host
-- Không có sẵn trên n8n cloud
-- Yêu cầu bạn phải tự host n8n
-- Phiên bản mới nhất hiện tại: 0.5.8
+- Zalo User Nodes chi kha dung tren cac phien ban n8n tu host
+- Khong co san tren n8n cloud
+- Yeu cau ban phai tu host n8n
+- Phien ban moi nhat hien tai: 0.6.0
 
-## Cài đặt qua GUI
+## Cai dat qua GUI
 
-### Yêu cầu
-- n8n phiên bản 0.200.0 trở lên
-- Quyền quản trị trên n8n
+### Yeu cau
+- n8n phien ban 0.200.0 tro len
+- Quyen quan tri tren n8n
 
-### Các bước cài đặt
+### Cac buoc cai dat
 
-1. Mở n8n và đăng nhập vào tài khoản của bạn
-2. Điều hướng đến phần "Settings" (Cài đặt)
-3. Chọn "Community Nodes" (Nodes cộng đồng)
-4. Nhập tên package: `n8n-nodes-zalo-tools`
-5. Click "Install" (Cài đặt)
-6. Chờ quá trình cài đặt hoàn tất
-7. Khởi động lại n8n để áp dụng các thay đổi
+1. Mo n8n va dang nhap vao tai khoan cua ban
+2. Dieu huong den phan "Settings" (Cai dat)
+3. Chon "Community Nodes" (Nodes cong dong)
+4. Nhap ten package: `n8n-nodes-zalo-tools`
+5. Click "Install" (Cai dat)
+6. Cho qua trinh cai dat hoan tat
+7. Khoi dong lai n8n de ap dung cac thay doi
 
-## Cài đặt thủ công
+## Cai dat thu cong
 
-### Yêu cầu
-- Node.js phiên bản 18 trở lên
-- npm hoặc yarn
-- Quyền truy cập vào thư mục cài đặt n8n
+### Yeu cau
+- Node.js phien ban 18 tro len
+- npm hoac pnpm
+- Quyen truy cap vao thu muc cai dat n8n
 
-### Các bước cài đặt
+### Cac buoc cai dat
 
-1. Truy cập vào thư mục cài đặt n8n của bạn
-2. Chạy lệnh sau để cài đặt Zalo Nodes:
+1. Truy cap vao thu muc cai dat n8n cua ban
+2. Chay lenh sau de cai dat Zalo Nodes:
 
 ```bash
-npm install n8n-nodes-zalo-tools
+npm install https://github.com/taducquang/zalo-node
 ```
 
-3. Khởi động lại n8n để áp dụng các thay đổi
+3. Khoi dong lai n8n de ap dung cac thay doi
 
-## Xác minh cài đặt
+## Xac minh cai dat
 
-Sau khi cài đặt thành công, bạn có thể xác minh bằng cách:
+Sau khi cai dat thanh cong, ban co the xac minh bang cach:
 
-1. Mở n8n
-2. Tạo một workflow mới
-3. Tìm kiếm "Zalo" trong danh sách nodes
-4. Bạn sẽ thấy các nodes sau:
+1. Mo n8n
+2. Tao mot workflow moi
+3. Tim kiem "Zalo" trong danh sach nodes
+4. Ban se thay cac nodes sau:
 - Zalo Login Via QR Code
 - Zalo Message Trigger
-- Zalo Send Message 
+- Zalo Friend Trigger
+- Zalo Send Message
 - Zalo Group
 - Zalo User
+- Zalo Poll
+- Zalo Tag
+- Zalo Sticker
 
-## Xử lý sự cố
+## Xu ly su co
 
-### Kiểm tra phiên bản
+### Kiem tra phien ban
 
-1. Kiểm tra phiên bản n8n:
+1. Kiem tra phien ban n8n:
 ```bash
 n8n -v
 ```
 
-2. Kiểm tra phiên bản Node.js:
+2. Kiem tra phien ban Node.js:
 ```bash
 node -v
 ```
 
-3. Kiểm tra phiên bản npm:
+3. Kiem tra phien ban npm:
 ```bash
 npm -v
 ```
 
-### Xóa cache npm
+### Xoa cache npm
 
-Nếu gặp vấn đề với cache, hãy thử:
+Neu gap van de voi cache, hay thu:
 
 ```bash
 npm cache clean --force
 ```
 
-### Khởi động lại Docker
+### Khoi dong lai Docker
 
-Nếu bạn đang chạy n8n trong Docker:
+Neu ban dang chay n8n trong Docker:
 
 ```bash
 docker-compose restart
 ```
 
-### Cài đặt lại
+### Cai dat lai
 
-Nếu vẫn gặp vấn đề, hãy thử cài đặt lại:
+Neu van gap van de, hay thu cai dat lai:
 
 ```bash
 npm uninstall n8n-nodes-zalo-tools
-npm install n8n-nodes-zalo-tools
+npm install https://github.com/taducquang/zalo-node
 ```
-
-

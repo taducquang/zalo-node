@@ -129,7 +129,7 @@ Operations:
 
 Lưu ý: việc sử dụng thư viện này đồng nghĩa với việc bạn đang làm trái với chính sách của Zalo và nó có thể khiến cho tài khoản của bạn bị vô hiệu hóa. Chúng tôi sẽ không chịu trách nhiệm nếu điều đó xảy ra, vậy nên hãy cân nhắc trước khi sử dụng.
 
-We would like to thank [ZCA-JS](https://github.com/nicenathapong/zca-js) for their work on this library.
+We would like to thank [ZCA-JS](https://github.com/RFS-ADRENO/zca-js) for their work on this library.
 
 ## License
 
