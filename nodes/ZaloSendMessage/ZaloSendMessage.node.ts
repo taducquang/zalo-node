@@ -7,7 +7,7 @@ import {
 } from 'n8n-workflow';
 import { API, ThreadType, Zalo } from 'zca-js';
 const { HttpsProxyAgent } = require('https-proxy-agent');
-import { saveFile, removeFile } from '../utils/helper';
+import { saveFile, removeFile, parseCookie } from '../utils/helper';
 
 export class ZaloSendMessage implements INodeType {
 	description: INodeTypeDescription = {
@@ -206,7 +206,7 @@ export class ZaloSendMessage implements INodeType {
 		const zaloCred = await this.getCredentials('zaloApi');
 
 		// Parse credentials
-		const cookieFromCred = JSON.parse(zaloCred.cookie as string);
+		const cookieFromCred = parseCookie(zaloCred.cookie as string);
 		const imeiFromCred = zaloCred.imei as string;
 		const userAgentFromCred = zaloCred.userAgent as string;
 

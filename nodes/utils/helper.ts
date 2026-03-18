@@ -4,6 +4,17 @@ import os from 'os';
 import path from 'path';
 
 /**
+ * Parse cookie JSON string from credentials with error handling
+ */
+export function parseCookie(cookieStr: string): any {
+	try {
+		return JSON.parse(cookieStr);
+	} catch {
+		throw new Error('Cookie credential is not valid JSON. Please check your Zalo credentials.');
+	}
+}
+
+/**
  * Tải file bất kỳ (ảnh, pdf, zip...) và lưu vào thư mục tạm trong n8n
  */
 export async function saveFile(url: string): Promise<string | null> {

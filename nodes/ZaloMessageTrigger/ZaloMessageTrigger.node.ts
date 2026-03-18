@@ -7,6 +7,7 @@ import {
 	IHookFunctions,
 } from 'n8n-workflow';
 import { API, Zalo, Undo, GroupEvent } from 'zca-js';
+import { parseCookie } from '../utils/helper';
 const { HttpsProxyAgent } = require('https-proxy-agent');
 
 let api: API | undefined;
@@ -109,7 +110,7 @@ export class ZaloMessageTrigger implements INodeType {
 				}
 
 				try {
-					const cookieFromCred = JSON.parse(credentials.cookie as string);
+					const cookieFromCred = parseCookie(credentials.cookie as string);
 					const imeiFromCred = credentials.imei as string;
 					const userAgentFromCred = credentials.userAgent as string;
 
