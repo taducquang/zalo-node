@@ -26,8 +26,23 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ━━━ Hide GitHub corner ━━━ */
-    .github-corner { display: none !important; }
+    /* ━━━ GitHub corner ━━━ */
+    .github-corner svg {
+      fill: #d4a27a !important;
+      color: #171717 !important;
+      width: 110px !important;
+      height: 110px !important;
+    }
+    .github-corner .octo-body,
+    .github-corner .octo-arm {
+      fill: #ffffff !important;
+    }
+    .github-corner:hover svg {
+      fill: #e8c4a8 !important;
+    }
+    .github-corner:hover .octo-arm {
+      animation: octocat-wave 560ms ease-in-out !important;
+    }
 
     /* ━━━ Sidebar ━━━ */
     .sidebar {
@@ -42,11 +57,11 @@
       padding: 0 !important;
     }
 
-    /* Site name / logo */
+    /* Site name */
     .app-name-link {
       display: block !important;
       font-weight: 700 !important;
-      font-size: 0.95rem !important;
+      font-size: 1.05rem !important;
       color: #ece8e4 !important;
       letter-spacing: -0.01em !important;
       padding: 1.25rem 1.25rem 1rem !important;
@@ -59,7 +74,7 @@
       color: #d4a27a !important;
     }
 
-    /* ── Search ── */
+    /* ── Search — visible on dark bg ── */
     .sidebar .search {
       margin: 0 !important;
       padding: 0.75rem 1rem !important;
@@ -77,31 +92,32 @@
       width: 100% !important;
       height: auto !important;
       margin: 0 !important;
-      padding: 0.5rem 0.75rem !important;
-      border: 1px solid #2a2725 !important;
+      padding: 0.55rem 0.85rem !important;
+      border: 1px solid #3d3935 !important;
       border-radius: 8px !important;
-      background: #1c1a19 !important;
+      background: #1e1c1b !important;
       color: #ddd8d3 !important;
       font-family: 'Inter', sans-serif !important;
-      font-size: 0.85rem !important;
+      font-size: 0.93rem !important;
       outline: none !important;
-      transition: border-color 0.2s !important;
+      transition: border-color 0.2s, box-shadow 0.2s !important;
     }
 
     .sidebar .search input:focus {
       border-color: #d4a27a !important;
+      box-shadow: 0 0 0 2px rgba(212, 162, 122, 0.15) !important;
     }
 
     .sidebar .search input::placeholder {
-      color: #5a5550 !important;
+      color: #706a64 !important;
     }
 
-    .search .clear-button { color: #5a5550 !important; }
-    .search .clear-button svg { fill: #5a5550 !important; }
+    .search .clear-button { color: #706a64 !important; }
+    .search .clear-button svg { fill: #706a64 !important; }
 
     .search .results-panel {
-      background: #1c1a19 !important;
-      border: 1px solid #2a2725 !important;
+      background: #1e1c1b !important;
+      border: 1px solid #3d3935 !important;
       border-radius: 8px !important;
       margin-top: 4px !important;
     }
@@ -120,7 +136,7 @@
 
     /* ── Nav layout ── */
     .sidebar-nav {
-      padding: 0 0.6rem !important;
+      padding: 0 0.65rem !important;
     }
 
     .sidebar-nav ul {
@@ -137,30 +153,29 @@
     .sidebar-nav > ul > li > p,
     .sidebar-nav > ul > li > strong {
       display: block !important;
-      color: #6a6560 !important;
-      font-size: 0.68rem !important;
+      color: #706a64 !important;
+      font-size: 0.72rem !important;
       font-weight: 700 !important;
       text-transform: uppercase !important;
       letter-spacing: 0.1em !important;
-      padding: 1.25rem 0.75rem 0.35rem !important;
+      padding: 1.25rem 0.75rem 0.4rem !important;
       margin: 0 !important;
       line-height: 1 !important;
       cursor: default !important;
       pointer-events: none !important;
     }
 
-    /* First category: less top padding */
     .sidebar-nav > ul > li:first-child > p,
     .sidebar-nav > ul > li:first-child > strong {
       padding-top: 0.5rem !important;
     }
 
-    /* ── Nav links ── */
+    /* ── Nav links — bigger, brighter ── */
     .sidebar-nav a {
-      color: #9a9590 !important;
-      padding: 0.4rem 0.75rem !important;
+      color: #b0aaa4 !important;
+      padding: 0.45rem 0.85rem !important;
       border-radius: 7px !important;
-      font-size: 0.85rem !important;
+      font-size: 0.97rem !important;
       font-weight: 500 !important;
       display: block !important;
       text-decoration: none !important;
@@ -186,21 +201,21 @@
     /* Hover */
     .sidebar-nav a:hover {
       color: #ece8e4 !important;
-      background: #1e1c1b !important;
-      padding-left: 1rem !important;
+      background: #1f1d1c !important;
+      padding-left: 1.1rem !important;
     }
 
     .sidebar-nav a:hover::before {
       transform: translateY(-50%) scaleY(1) !important;
     }
 
-    /* Active */
+    /* Active — white text on warm surface */
     .sidebar ul li.active > a,
     .sidebar-nav li.active > a {
-      color: #d4a27a !important;
-      background: rgba(212, 162, 122, 0.08) !important;
+      color: #ece8e4 !important;
+      background: rgba(212, 162, 122, 0.12) !important;
       font-weight: 600 !important;
-      padding-left: 1rem !important;
+      padding-left: 1.1rem !important;
       border: none !important;
     }
 
@@ -210,10 +225,10 @@
     }
 
     .sidebar ul li.active > a:hover {
-      background: rgba(212, 162, 122, 0.12) !important;
+      background: rgba(212, 162, 122, 0.18) !important;
     }
 
-    /* Sub-sidebar (h2 anchors in page) */
+    /* Sub-sidebar (h2 anchors) */
     .app-sub-sidebar {
       padding-left: 0.5rem !important;
     }
@@ -224,13 +239,39 @@
     }
 
     .app-sub-sidebar a {
-      font-size: 0.8rem !important;
-      color: #6a6560 !important;
-      padding: 0.25rem 0.75rem !important;
+      font-size: 0.87rem !important;
+      color: #7a7570 !important;
+      padding: 0.25rem 0.85rem !important;
     }
 
     .app-sub-sidebar a:hover {
-      color: #9a9590 !important;
+      color: #b0aaa4 !important;
+    }
+
+    /* ━━━ Sidebar toggle (hamburger) ━━━ */
+    .sidebar-toggle {
+      background: transparent !important;
+      padding: 8px !important;
+      cursor: pointer !important;
+    }
+
+    .sidebar-toggle span {
+      background: #b0aaa4 !important;
+      width: 20px !important;
+      height: 2px !important;
+    }
+
+    .sidebar-toggle:hover span {
+      background: #d4a27a !important;
+    }
+
+    /* Also target the button icon if docsify uses a different structure */
+    button.sidebar-toggle {
+      background: transparent !important;
+    }
+
+    .sidebar-toggle .sidebar-toggle-button {
+      color: #b0aaa4 !important;
     }
 
     /* ━━━ Main Content ━━━ */
@@ -261,7 +302,7 @@
       margin-top: 1rem !important;
     }
 
-    /* ── h2 — Major section ── */
+    /* ── h2 — Major section — big, white, bordered ── */
     .markdown-section h2 {
       color: #ece8e4 !important;
       font-size: 1.5rem !important;
@@ -270,13 +311,13 @@
       font-weight: 700 !important;
       letter-spacing: -0.02em !important;
       line-height: 1.3 !important;
-      border-bottom: 1px solid #2a2725 !important;
+      border-bottom: 2px solid #3d3935 !important;
     }
 
-    /* ── h3 — Subsection — accent color, smaller ── */
+    /* ── h3 — Subsection — accent, clearly smaller ── */
     .markdown-section h3 {
       color: #d4a27a !important;
-      font-size: 1.05rem !important;
+      font-size: 1.15rem !important;
       margin: 1.75rem 0 0.5rem !important;
       padding: 0 !important;
       font-weight: 600 !important;
@@ -287,7 +328,7 @@
 
     .markdown-section h4 {
       color: #9a9590 !important;
-      font-size: 0.9rem !important;
+      font-size: 0.95rem !important;
       font-weight: 600 !important;
       text-transform: uppercase !important;
       letter-spacing: 0.04em !important;
@@ -298,9 +339,9 @@
 
     /* ── Text ── */
     .markdown-section p {
-      color: #bbb6b0 !important;
+      color: #ddd8d3 !important;
       margin: 0 0 1rem !important;
-      font-size: 0.95rem !important;
+      font-size: 1rem !important;
       line-height: 1.75 !important;
     }
 
@@ -333,9 +374,9 @@
     }
 
     .markdown-section li {
-      color: #bbb6b0 !important;
+      color: #ddd8d3 !important;
       margin: 0.35rem 0 !important;
-      font-size: 0.95rem !important;
+      font-size: 1rem !important;
       line-height: 1.65 !important;
     }
 
@@ -354,7 +395,6 @@
       font-size: 1.1em !important;
     }
 
-    /* Nested list items */
     .markdown-section ul ul > li::before {
       content: '–' !important;
       color: #5a5550 !important;
@@ -404,8 +444,8 @@
     .markdown-section table td {
       padding: 0.6rem 0.85rem !important;
       border-bottom: 1px solid #1f1d1c !important;
-      color: #bbb6b0 !important;
-      font-size: 0.9rem !important;
+      color: #ddd8d3 !important;
+      font-size: 0.95rem !important;
     }
 
     .markdown-section table tr:last-child td {
@@ -444,7 +484,7 @@
       border: 1px solid #2a2725 !important;
     }
 
-    /* Prism token colors for dark theme */
+    /* Prism token colors */
     .token.comment,
     .token.prolog { color: #5a5550 !important; }
     .token.keyword { color: #c792ea !important; }
@@ -469,8 +509,6 @@
     ::-webkit-scrollbar-thumb:hover { background: #3a3735; }
 
     /* ── Docsify overrides ── */
-    .sidebar-toggle { background: #111111 !important; }
-    .sidebar-toggle span { background: #5a5550 !important; }
     body .docsify-copy-code-button { color: #6a6560 !important; }
 
     /* ── Responsive ── */
@@ -479,6 +517,7 @@
       .markdown-section h1 { font-size: 1.75rem !important; }
       .markdown-section h2 { font-size: 1.3rem !important; }
       .markdown-section h3 { font-size: 1rem !important; }
+      .github-corner svg { width: 70px !important; height: 70px !important; }
     }
   </style>
 </head>
@@ -487,7 +526,7 @@
   <script>
     window.$docsify = {
       name: 'n8n-nodes-zalo-node',
-      repo: '',
+      repo: 'https://github.com/taducquang/zalo-node',
       loadSidebar: 'sidebar.md',
       subMaxLevel: 2,
       search: {
