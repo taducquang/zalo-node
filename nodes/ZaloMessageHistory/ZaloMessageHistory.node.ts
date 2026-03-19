@@ -35,22 +35,10 @@ export class ZaloMessageHistory implements INodeType {
 			{
 				displayName: 'Thread Type',
 				name: 'threadType',
-				type: 'options',
-				options: [
-					{
-						name: 'Group',
-						value: 1,
-						description: 'Lấy lịch sử tin nhắn nhóm (REST API)',
-					},
-					{
-						name: 'User',
-						value: 0,
-						description: 'Lấy lịch sử tin nhắn cá nhân (WebSocket)',
-					},
-				],
-				default: 1,
+				type: 'number',
+				default: 0,
 				required: true,
-				description: 'Loại cuộc trò chuyện cần lấy lịch sử',
+				description: 'Loại cuộc trò chuyện: 0 = User (cá nhân), 1 = Group (nhóm). Gợi ý: {{ $json["data"]["type"] }}',
 			},
 			{
 				displayName: 'Thread ID',
@@ -75,12 +63,7 @@ export class ZaloMessageHistory implements INodeType {
 				name: 'timeout',
 				type: 'number',
 				default: 15,
-				description: 'Thời gian chờ tối đa để nhận lịch sử tin nhắn (chỉ áp dụng cho User)',
-				displayOptions: {
-					show: {
-						threadType: [0],
-					},
-				},
+				description: 'Thời gian chờ tối đa để nhận lịch sử tin nhắn (chỉ áp dụng cho User, Thread Type = 0)',
 				typeOptions: {
 					minValue: 5,
 					maxValue: 60,
