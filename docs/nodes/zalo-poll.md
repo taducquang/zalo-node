@@ -7,34 +7,37 @@ Node Zalo Poll cho phép bạn quản lý bình chọn (poll) trong các nhóm Z
 ### Tạo Bình Chọn (createPoll)
 Tạo một bình chọn mới trong nhóm.
 
-**Tham số:**
-- `Group ID`: ID của nhóm
-- `Question`: Câu hỏi bình chọn
-- `Options`: Các lựa chọn (nhập bằng danh sách hoặc text phân cách bằng dấu phẩy)
-- `Expired Time`: Thời gian hết hạn (tùy chọn)
-- `Pin Act`: Ghim bình chọn lên đầu nhóm
-- `Allow Multi Choices`: Cho phép chọn nhiều lựa chọn
-- `Allow Add New Option`: Cho phép thêm lựa chọn mới
-- `Hide Vote Preview`: Ẩn kết quả trước khi kết thúc
-- `Is Anonymous`: Bình chọn ẩn danh
+| Trường | Mô tả | Gợi ý giá trị n8n |
+|--------|-------|-------------------|
+| **Group ID** | ID của nhóm | `{{ $json["data"]["idTo"] }}` |
+| **Question** | Câu hỏi bình chọn | |
+| **Options** | Các lựa chọn (danh sách hoặc text phân cách bằng dấu phẩy) | |
+| **Expired Time** | Thời gian hết hạn (tùy chọn) | |
+| **Pin Act** | Ghim bình chọn lên đầu nhóm | |
+| **Allow Multi Choices** | Cho phép chọn nhiều lựa chọn | |
+| **Allow Add New Option** | Cho phép thêm lựa chọn mới | |
+| **Hide Vote Preview** | Ẩn kết quả trước khi kết thúc | |
+| **Is Anonymous** | Bình chọn ẩn danh | |
 
 ### Lấy Thông Tin Bình Chọn (getPoll)
 Lấy thông tin chi tiết của một bình chọn.
 
-**Tham số:**
-- `Poll ID`: ID của bình chọn cần lấy thông tin
+| Trường | Mô tả | Gợi ý giá trị n8n |
+|--------|-------|-------------------|
+| **Poll ID** | ID của bình chọn | |
 
 ### Khóa Bình Chọn (lockPoll)
 Khóa (đóng) một bình chọn.
 
-**Tham số:**
-- `Poll ID`: ID của bình chọn cần khóa
+| Trường | Mô tả | Gợi ý giá trị n8n |
+|--------|-------|-------------------|
+| **Poll ID** | ID của bình chọn cần khóa | |
 
 ## Ví Dụ Sử Dụng
 
-### Tạo bình chọn mới
+### Tạo bình chọn từ trigger nhóm
 ```
-Group ID: 123456789
+Group ID: {{ $json["data"]["idTo"] }}
 Question: Bạn thích ăn gì?
 Options: Phở, Bún, Cơm
 Allow Multi Choices: true

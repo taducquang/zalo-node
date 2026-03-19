@@ -6,10 +6,10 @@ Node **Zalo Send Typing Event** cho phép gửi sự kiện "đang nhập" (typi
 
 ## Cấu hình
 
-| Trường | Mô tả |
-|--------|-------|
-| **Thread ID** | ID của cuộc trò chuyện (user ID hoặc group ID) |
-| **Thread Type** | Loại cuộc trò chuyện: `User` (cá nhân) hoặc `Group` (nhóm) |
+| Trường | Mô tả | Gợi ý giá trị n8n |
+|--------|-------|-------------------|
+| **Thread ID** | ID của cuộc trò chuyện (user ID hoặc group ID) | `{{ $json["data"]["threadId"] }}` |
+| **Thread Type** | Loại cuộc trò chuyện: `0` = User, `1` = Group | `{{ $json["data"]["isGroup"] ? 1 : 0 }}` |
 
 ## Ví dụ sử dụng
 
@@ -26,12 +26,12 @@ Kết hợp với **Zalo Message Trigger** để hiển thị trạng thái "đa
 3. Xử lý logic (gọi AI, truy vấn database, v.v.)
 4. **Zalo Send Message** gửi tin nhắn phản hồi
 
-### Cấu hình Thread ID động
+### Cấu hình tự động từ trigger
 
-Sử dụng expression để lấy Thread ID từ trigger:
+Sử dụng expression để lấy giá trị tự động từ trigger:
 
-- **Thread ID**: `{{ $json.data.uidFrom }}` (cho tin nhắn cá nhân) hoặc `{{ $json.data.idTo }}` (cho tin nhắn nhóm)
-- **Thread Type**: `User` hoặc `Group` tùy theo loại cuộc trò chuyện
+- **Thread ID**: `{{ $json["data"]["threadId"] }}`
+- **Thread Type**: `{{ $json["data"]["isGroup"] ? 1 : 0 }}`
 
 ## Kết quả trả về
 
@@ -53,7 +53,7 @@ Node giữ nguyên toàn bộ dữ liệu đầu vào (từ trigger hoặc node 
 }
 ```
 
-Dữ liệu gốc từ trigger được giữ nguyên, nên các node phía sau (ví dụ **Zalo Send Message**) vẫn truy cập được `{{ $json.data.uidFrom }}`, `{{ $json.data.content }}`, v.v.
+Dữ liệu gốc từ trigger được giữ nguyên, nên các node phía sau (ví dụ **Zalo Send Message**) vẫn truy cập được `{{ $json["data"]["uidFrom"] }}`, `{{ $json["data"]["content"] }}`, v.v.
 
 ## Lưu ý
 

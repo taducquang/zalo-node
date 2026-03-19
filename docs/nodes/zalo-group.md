@@ -7,100 +7,96 @@ Node Zalo Group cho phép bạn tương tác với API nhóm của Zalo, giúp q
 ### Tạo Nhóm
 Tạo một nhóm mới trên Zalo.
 
-**Tham số:**
-- `Tên Nhóm`: Tên của nhóm mới
-- `Danh Sách ID Thành Viên`: Danh sách ID của các thành viên ban đầu, phân cách bằng dấu phẩy
+| Trường | Mô tả | Gợi ý giá trị n8n |
+|--------|-------|-------------------|
+| **Tên Nhóm** | Tên của nhóm mới | |
+| **Danh Sách ID Thành Viên** | ID thành viên, phân cách bằng dấu phẩy | |
 
 ### Lấy Thông Tin Nhóm
 Lấy thông tin chi tiết của một nhóm.
 
-**Tham số:**
-- `ID Nhóm`: ID của nhóm cần lấy thông tin
+| Trường | Mô tả | Gợi ý giá trị n8n |
+|--------|-------|-------------------|
+| **ID Nhóm** | ID của nhóm | `{{ $json["data"]["idTo"] }}` |
 
 ### Thêm Phó Nhóm
 Thêm một người dùng làm phó nhóm.
 
-**Tham số:**
-- `ID Nhóm`: ID của nhóm
-- `ID Người Dùng`: ID của người dùng cần thêm làm phó nhóm
+| Trường | Mô tả | Gợi ý giá trị n8n |
+|--------|-------|-------------------|
+| **ID Nhóm** | ID của nhóm | `{{ $json["data"]["idTo"] }}` |
+| **ID Người Dùng** | ID người dùng | `{{ $json["data"]["uidFrom"] }}` |
 
 ### Thêm Thành Viên Vào Nhóm
 Thêm một hoặc nhiều thành viên vào nhóm.
 
-**Tham số:**
-- `ID Nhóm`: ID của nhóm
-- `Danh Sách ID Thành Viên`: Danh sách ID của các thành viên cần thêm, phân cách bằng dấu phẩy
+| Trường | Mô tả | Gợi ý giá trị n8n |
+|--------|-------|-------------------|
+| **ID Nhóm** | ID của nhóm | `{{ $json["data"]["idTo"] }}` |
+| **Danh Sách ID Thành Viên** | ID thành viên, phân cách bằng dấu phẩy | |
 
 ### Đổi Avatar Nhóm
 Thay đổi ảnh đại diện của nhóm.
 
-**Tham số:**
-- `ID Nhóm`: ID của nhóm
-- `URL Ảnh`: URL của ảnh đại diện mới
+| Trường | Mô tả | Gợi ý giá trị n8n |
+|--------|-------|-------------------|
+| **ID Nhóm** | ID của nhóm | `{{ $json["data"]["idTo"] }}` |
+| **URL Ảnh** | URL của ảnh đại diện mới | |
 
 ### Đổi Tên Nhóm
 Thay đổi tên của nhóm.
 
-**Tham số:**
-- `ID Nhóm`: ID của nhóm
-- `Tên Mới`: Tên mới của nhóm
+| Trường | Mô tả | Gợi ý giá trị n8n |
+|--------|-------|-------------------|
+| **ID Nhóm** | ID của nhóm | `{{ $json["data"]["idTo"] }}` |
+| **Tên Mới** | Tên mới của nhóm | |
 
 ### Lấy Danh Sách Thành Viên
 Lấy danh sách các thành viên trong nhóm.
 
-**Tham số:**
-- `ID Nhóm`: ID của nhóm
-- `Giới Hạn`: Số lượng thành viên tối đa cần lấy (mặc định: 50)
+| Trường | Mô tả | Gợi ý giá trị n8n |
+|--------|-------|-------------------|
+| **ID Nhóm** | ID của nhóm | `{{ $json["data"]["idTo"] }}` |
+| **Giới Hạn** | Số lượng tối đa (mặc định: 50) | |
 
 ### Lấy Tất Cả Nhóm
 Lấy danh sách tất cả các nhóm.
 
+| Trường | Mô tả | Gợi ý giá trị n8n |
+|--------|-------|-------------------|
+| **Giới Hạn** | Số lượng tối đa (mặc định: 50) | |
+
 ### Xóa Thành Viên Khỏi Nhóm
 Xóa một hoặc nhiều thành viên khỏi nhóm.
 
-**Tham số:**
-- `ID Nhóm`: ID của nhóm
-- `ID Người Dùng`: Danh sách ID của các thành viên cần xóa, phân cách bằng dấu phẩy
+| Trường | Mô tả | Gợi ý giá trị n8n |
+|--------|-------|-------------------|
+| **ID Nhóm** | ID của nhóm | `{{ $json["data"]["idTo"] }}` |
+| **ID Người Dùng** | ID thành viên, phân cách bằng dấu phẩy | `{{ $json["data"]["uidFrom"] }}` |
 
 ### Tạo Ghi Chú
 Tạo ghi chú trong nhóm (có thể ghim).
 
-**Tham số:**
-- `ID Nhóm`: ID của nhóm
-- `Nội Dung`: Nội dung ghi chú
-- `Ghim`: Có ghim ghi chú hay không
+| Trường | Mô tả | Gợi ý giá trị n8n |
+|--------|-------|-------------------|
+| **ID Nhóm** | ID của nhóm | `{{ $json["data"]["idTo"] }}` |
+| **Nội Dung** | Nội dung ghi chú | |
+| **Ghim** | Ghim ghi chú hay không | |
 
-### Lấy Lịch Sử Tin Nhắn Nhóm *(MỚI)*
+### Lấy Lịch Sử Tin Nhắn Nhóm
 Lấy lịch sử tin nhắn của nhóm.
 
-**Tham số:**
-- `ID Nhóm`: ID của nhóm
-- `Số Lượng`: Số lượng tin nhắn cần lấy
+| Trường | Mô tả | Gợi ý giá trị n8n |
+|--------|-------|-------------------|
+| **ID Nhóm** | ID của nhóm | `{{ $json["data"]["idTo"] }}` |
+| **Số Lượng** | Số tin nhắn cần lấy (mặc định: 50) | |
 
-### Nâng Cấp Nhóm Thành Cộng Đồng *(MỚI)*
+### Nâng Cấp Nhóm Thành Cộng Đồng
 Nâng cấp nhóm thành cộng đồng (community).
 
-**Tham số:**
-- `ID Nhóm`: ID của nhóm cần nâng cấp
-
-## Ví Dụ Sử Dụng
-
-### Tạo Nhóm Mới
-```typescript
-const groupName = "Nhóm Công Việc";
-const userIds = "123456789,987654321";
-```
-
-### Lấy Thông Tin Nhóm
-```typescript
-const groupId = "123456789";
-```
-
-### Thêm Thành Viên
-```typescript
-const groupId = "123456789";
-const userIds = "111222333,444555666";
-```
+| Trường | Mô tả | Gợi ý giá trị n8n |
+|--------|-------|-------------------|
+| **ID Nhóm** | ID của nhóm cần nâng cấp | `{{ $json["data"]["idTo"] }}` |
 
 ## Xử Lý Lỗi
 

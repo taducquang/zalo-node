@@ -53,7 +53,7 @@ export const zaloPollFields: INodeProperties[] = [
                 operation: ['createPoll'],
             },
         },
-        description: 'ID của nhóm để tạo poll (chỉ hoạt động với nhóm)',
+        description: 'ID của nhóm để tạo poll (chỉ hoạt động với nhóm). Gợi ý: {{ $json["data"]["idTo"] }}',
     },
     {
 		displayName: 'Chủ đề bình chọn',

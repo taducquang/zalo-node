@@ -4,28 +4,21 @@ Node Zalo Send Message cho phép bạn gửi tin nhắn đến người dùng ho
 
 ## Tham Số
 
-### Thread ID
-ID của người nhận hoặc nhóm.
-
-### Type
-Loại tin nhắn:
-- `User` (0): Gửi đến người dùng
-- `Group` (1): Gửi đến nhóm
-
-### Message
-Nội dung tin nhắn cần gửi.
-
-### Urgency
-Mức độ khẩn cấp:
-- `Default` (0): Mặc định
-- `Important` (1): Quan trọng
-- `Urgent` (2): Khẩn cấp
+| Trường | Mô tả | Gợi ý giá trị n8n |
+|--------|-------|-------------------|
+| **Thread ID** | ID của người nhận hoặc nhóm | `{{ $json["data"]["threadId"] }}` |
+| **Type** | Loại tin nhắn: `0` = User, `1` = Group | `{{ $json["data"]["isGroup"] ? 1 : 0 }}` |
+| **Message** | Nội dung tin nhắn cần gửi | |
+| **Urgency** | Mức độ khẩn cấp: `0` = Default, `1` = Important, `2` = Urgent | |
 
 ### Quote Message
 Trích dẫn tin nhắn:
-- `Message ID`: ID của tin nhắn cần trích dẫn
-- `Sender ID`: ID của người gửi tin nhắn trích dẫn
-- `Content`: Nội dung tin nhắn trích dẫn
+
+| Trường | Mô tả | Gợi ý giá trị n8n |
+|--------|-------|-------------------|
+| **Message ID** | ID của tin nhắn cần trích dẫn | `{{ $json["data"]["msgId"] }}` |
+| **Sender ID** | ID của người gửi tin nhắn trích dẫn | `{{ $json["data"]["uidFrom"] }}` |
+| **Content** | Nội dung tin nhắn trích dẫn | `{{ $json["data"]["content"] }}` |
 
 ### Mentions
 Mention người dùng trong tin nhắn:
@@ -38,7 +31,7 @@ Mention người dùng trong tin nhắn:
 - `Image URL/File URL`: URL công khai của ảnh hoặc file
 - Hỗ trợ nhiều URL phân cách bằng dấu phẩy
 
-### Styles JSON *(MỚI)*
+### Styles JSON
 Định dạng tin nhắn bằng JSON:
 ```json
 [
@@ -49,17 +42,18 @@ Mention người dùng trong tin nhắn:
 
 ## Ví Dụ Sử Dụng
 
-### Gửi tin nhắn văn bản
+### Gửi tin nhắn tự động từ trigger
+
 ```
-Thread ID: 123456789
-Type: User
-Message: Xin chào!
+Thread ID: {{ $json["data"]["threadId"] }}
+Type: {{ $json["data"]["isGroup"] ? 1 : 0 }}
+Message: Xin chào! Cảm ơn bạn đã nhắn tin.
 ```
 
 ### Gửi tin nhắn với đính kèm
 ```
-Thread ID: 123456789
-Type: Group
+Thread ID: {{ $json["data"]["threadId"] }}
+Type: {{ $json["data"]["isGroup"] ? 1 : 0 }}
 Message: Đây là file báo cáo
 Attachments: https://example.com/file1.pdf, https://example.com/file2.pdf
 ```

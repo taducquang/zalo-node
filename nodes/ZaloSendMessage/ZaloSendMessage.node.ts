@@ -5,7 +5,7 @@ import {
 	INodeTypeDescription,
 	NodeOperationError
 } from 'n8n-workflow';
-import { API, ThreadType, Zalo } from 'zca-js';
+import { API, Zalo } from 'zca-js';
 import { saveFile, removeFile, parseCookie, createProxyAgent } from '../utils/helper';
 
 export class ZaloSendMessage implements INodeType {
@@ -36,24 +36,15 @@ export class ZaloSendMessage implements INodeType {
 				type: 'string',
 				default: '',
 				required: true,
-				description: 'ID của thread để gửi tin nhắn',
+				description: 'ID của thread để gửi tin nhắn. Gợi ý: {{ $json["data"]["threadId"] }}',
 			},
 			{
 				displayName: 'Type',
 				name: 'type',
-				type: 'options',
-				options: [
-					{
-						name: 'User',
-						value: 0,
-					},
-					{
-						name: 'Group',
-						value: 1,
-					},
-				],
+				type: 'number',
 				default: 0,
-				description: 'Loại của tin nhắn (user hoặc group)',
+				required: true,
+				description: 'Loại tin nhắn: 0 = User (cá nhân), 1 = Group (nhóm). Gợi ý: {{ $json["data"]["isGroup"] ? 1 : 0 }}',
 			},
 			{
 				displayName: 'Message',
@@ -238,8 +229,7 @@ export class ZaloSendMessage implements INodeType {
 			try {
 				// Get parameters
 				const threadId = this.getNodeParameter('threadId', i) as string;
-				const typeNumber = this.getNodeParameter('type', i) as number;
-				const type = typeNumber === 0 ? ThreadType.User : ThreadType.Group;
+				const type = this.getNodeParameter('type', i) as number;
 				const message = this.getNodeParameter('message', i) as string;
 				const urgency = this.getNodeParameter('urgency', i, 0) as number;
 				const quote = this.getNodeParameter('quote', i, {}) as any;

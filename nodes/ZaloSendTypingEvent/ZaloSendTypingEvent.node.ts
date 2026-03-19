@@ -38,26 +38,15 @@ export class ZaloSendTypingEvent implements INodeType {
 				type: 'string',
 				default: '',
 				required: true,
-				description: 'ID của cuộc trò chuyện (user ID hoặc group ID)',
+				description: 'ID của cuộc trò chuyện (user ID hoặc group ID). Gợi ý: {{ $json["data"]["threadId"] }}',
 			},
 			{
 				displayName: 'Thread Type',
 				name: 'threadType',
-				type: 'options',
-				options: [
-					{
-						name: 'User',
-						value: 0,
-						description: 'Cuộc trò chuyện cá nhân',
-					},
-					{
-						name: 'Group',
-						value: 1,
-						description: 'Cuộc trò chuyện nhóm',
-					},
-				],
+				type: 'number',
 				default: 0,
-				description: 'Loại cuộc trò chuyện',
+				required: true,
+				description: 'Loại cuộc trò chuyện: 0 = User (cá nhân), 1 = Group (nhóm). Gợi ý: {{ $json["data"]["isGroup"] ? 1 : 0 }}',
 			},
 		],
 	};
