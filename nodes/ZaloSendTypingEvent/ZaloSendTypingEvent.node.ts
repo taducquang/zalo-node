@@ -97,9 +97,12 @@ export class ZaloSendTypingEvent implements INodeType {
 
 				returnData.push({
 					json: {
-						success: !!result,
-						threadId,
-						threadType: threadType === 0 ? 'User' : 'Group',
+						...items[i].json,
+						typingEvent: {
+							success: !!result,
+							threadId,
+							threadType: threadType === 0 ? 'User' : 'Group',
+						},
 					},
 					pairedItem: { item: i },
 				});
