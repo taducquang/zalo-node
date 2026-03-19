@@ -9,14 +9,14 @@ Chấp nhận lời mời kết bạn từ một người dùng khác.
 
 | Trường | Mô tả | Gợi ý giá trị n8n |
 |--------|-------|-------------------|
-| **User ID** | ID của người dùng cần chấp nhận | `{{ $json["data"]["uidFrom"] }}` |
+| **User ID** | ID của người dùng cần chấp nhận | `{{ $json["data"]["data"]["uidFrom"] }}` |
 
 ### Gửi lời mời kết bạn
 Gửi lời mời kết bạn đến một người dùng khác.
 
 | Trường | Mô tả | Gợi ý giá trị n8n |
 |--------|-------|-------------------|
-| **User ID** | ID của người dùng | `{{ $json["data"]["uidFrom"] }}` |
+| **User ID** | ID của người dùng | `{{ $json["data"]["data"]["uidFrom"] }}` |
 | **Message** | Tin nhắn kèm theo lời mời kết bạn | |
 
 ### Chặn người dùng
@@ -24,14 +24,14 @@ Chặn một người dùng khác.
 
 | Trường | Mô tả | Gợi ý giá trị n8n |
 |--------|-------|-------------------|
-| **User ID** | ID của người dùng cần chặn | `{{ $json["data"]["uidFrom"] }}` |
+| **User ID** | ID của người dùng cần chặn | `{{ $json["data"]["data"]["uidFrom"] }}` |
 
 ### Bỏ chặn người dùng
 Bỏ chặn một người dùng đã bị chặn trước đó.
 
 | Trường | Mô tả | Gợi ý giá trị n8n |
 |--------|-------|-------------------|
-| **User ID** | ID của người dùng cần bỏ chặn | `{{ $json["data"]["uidFrom"] }}` |
+| **User ID** | ID của người dùng cần bỏ chặn | `{{ $json["data"]["data"]["uidFrom"] }}` |
 
 ### Thay đổi cài đặt tài khoản
 Cập nhật thông tin và cài đặt của tài khoản.
@@ -47,7 +47,7 @@ Lấy thông tin chi tiết của một người dùng.
 
 | Trường | Mô tả | Gợi ý giá trị n8n |
 |--------|-------|-------------------|
-| **User ID** | ID của người dùng | `{{ $json["data"]["uidFrom"] }}` |
+| **User ID** | ID của người dùng | `{{ $json["data"]["data"]["uidFrom"] }}` |
 
 ### Lấy danh sách bạn bè
 Lấy danh sách tất cả bạn bè của tài khoản.
@@ -68,7 +68,7 @@ Tìm kiếm người dùng theo số điện thoại.
 
 | Trường | Mô tả | Gợi ý giá trị n8n |
 |--------|-------|-------------------|
-| **User ID** | ID của bạn bè | `{{ $json["data"]["uidFrom"] }}` |
+| **User ID** | ID của bạn bè | `{{ $json["data"]["data"]["uidFrom"] }}` |
 | **Alias Name** | Tên gợi nhớ mới | |
 
 ### Thu hồi tin nhắn
@@ -77,9 +77,9 @@ Thu hồi (undo) một tin nhắn đã gửi.
 | Trường | Mô tả | Gợi ý giá trị n8n |
 |--------|-------|-------------------|
 | **Thread ID** | ID của cuộc trò chuyện | `{{ $json["data"]["threadId"] }}` |
-| **Thread Type** | Loại: `0` = User, `1` = Group | `{{ $json["data"]["isGroup"] ? 1 : 0 }}` |
-| **Message ID** | ID của tin nhắn cần thu hồi | `{{ $json["data"]["msgId"] }}` |
-| **Client Message ID** | Client message ID | `{{ $json["data"]["cliMsgId"] }}` |
+| **Thread Type** | Loại: `0` = User, `1` = Group | `{{ $json["data"]["type"] }}` |
+| **Message ID** | ID của tin nhắn cần thu hồi | `{{ $json["data"]["data"]["msgId"] }}` |
+| **Client Message ID** | Client message ID | `{{ $json["data"]["data"]["cliMsgId"] }}` |
 
 ### Tìm kiếm người dùng theo username
 Tìm kiếm người dùng bằng username Zalo.

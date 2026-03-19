@@ -139,7 +139,7 @@ export const zaloGroupFields: INodeProperties[] = [
 				operation: ['getGroupInfo'],
 			},
 		},
-		description: 'ID của nhóm cần lấy thông tin. Gợi ý: {{ $json["data"]["idTo"] }}',
+		description: 'ID của nhóm cần lấy thông tin. Gợi ý: {{ $json["data"]["data"]["idTo"] }}',
 	},
 
 	/* -------------------------------------------------------------------------- */
@@ -413,7 +413,7 @@ export const zaloGroupFields: INodeProperties[] = [
 				operation: ['getGroupChatHistory'],
 			},
 		},
-		description: 'ID của nhóm cần lấy lịch sử chat. Gợi ý: {{ $json["data"]["idTo"] }}',
+		description: 'ID của nhóm cần lấy lịch sử chat. Gợi ý: {{ $json["data"]["data"]["idTo"] }}',
 	},
 	{
 		displayName: 'Số Lượng Tin Nhắn',
@@ -445,6 +445,6 @@ export const zaloGroupFields: INodeProperties[] = [
 				operation: ['upgradeGroupToCommunity'],
 			},
 		},
-		description: 'ID của nhóm cần nâng cấp thành cộng đồng. Gợi ý: {{ $json["data"]["idTo"] }}',
+		description: 'ID của nhóm cần nâng cấp thành cộng đồng. Gợi ý: {{ $json["data"]["data"]["idTo"] }}',
 	},
 ]; 

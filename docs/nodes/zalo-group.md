@@ -17,22 +17,22 @@ Lấy thông tin chi tiết của một nhóm.
 
 | Trường | Mô tả | Gợi ý giá trị n8n |
 |--------|-------|-------------------|
-| **ID Nhóm** | ID của nhóm | `{{ $json["data"]["idTo"] }}` |
+| **ID Nhóm** | ID của nhóm | `{{ $json["data"]["data"]["idTo"] }}` |
 
 ### Thêm Phó Nhóm
 Thêm một người dùng làm phó nhóm.
 
 | Trường | Mô tả | Gợi ý giá trị n8n |
 |--------|-------|-------------------|
-| **ID Nhóm** | ID của nhóm | `{{ $json["data"]["idTo"] }}` |
-| **ID Người Dùng** | ID người dùng | `{{ $json["data"]["uidFrom"] }}` |
+| **ID Nhóm** | ID của nhóm | `{{ $json["data"]["data"]["idTo"] }}` |
+| **ID Người Dùng** | ID người dùng | `{{ $json["data"]["data"]["uidFrom"] }}` |
 
 ### Thêm Thành Viên Vào Nhóm
 Thêm một hoặc nhiều thành viên vào nhóm.
 
 | Trường | Mô tả | Gợi ý giá trị n8n |
 |--------|-------|-------------------|
-| **ID Nhóm** | ID của nhóm | `{{ $json["data"]["idTo"] }}` |
+| **ID Nhóm** | ID của nhóm | `{{ $json["data"]["data"]["idTo"] }}` |
 | **Danh Sách ID Thành Viên** | ID thành viên, phân cách bằng dấu phẩy | |
 
 ### Đổi Avatar Nhóm
@@ -40,7 +40,7 @@ Thay đổi ảnh đại diện của nhóm.
 
 | Trường | Mô tả | Gợi ý giá trị n8n |
 |--------|-------|-------------------|
-| **ID Nhóm** | ID của nhóm | `{{ $json["data"]["idTo"] }}` |
+| **ID Nhóm** | ID của nhóm | `{{ $json["data"]["data"]["idTo"] }}` |
 | **URL Ảnh** | URL của ảnh đại diện mới | |
 
 ### Đổi Tên Nhóm
@@ -48,7 +48,7 @@ Thay đổi tên của nhóm.
 
 | Trường | Mô tả | Gợi ý giá trị n8n |
 |--------|-------|-------------------|
-| **ID Nhóm** | ID của nhóm | `{{ $json["data"]["idTo"] }}` |
+| **ID Nhóm** | ID của nhóm | `{{ $json["data"]["data"]["idTo"] }}` |
 | **Tên Mới** | Tên mới của nhóm | |
 
 ### Lấy Danh Sách Thành Viên
@@ -56,7 +56,7 @@ Lấy danh sách các thành viên trong nhóm.
 
 | Trường | Mô tả | Gợi ý giá trị n8n |
 |--------|-------|-------------------|
-| **ID Nhóm** | ID của nhóm | `{{ $json["data"]["idTo"] }}` |
+| **ID Nhóm** | ID của nhóm | `{{ $json["data"]["data"]["idTo"] }}` |
 | **Giới Hạn** | Số lượng tối đa (mặc định: 50) | |
 
 ### Lấy Tất Cả Nhóm
@@ -71,15 +71,15 @@ Xóa một hoặc nhiều thành viên khỏi nhóm.
 
 | Trường | Mô tả | Gợi ý giá trị n8n |
 |--------|-------|-------------------|
-| **ID Nhóm** | ID của nhóm | `{{ $json["data"]["idTo"] }}` |
-| **ID Người Dùng** | ID thành viên, phân cách bằng dấu phẩy | `{{ $json["data"]["uidFrom"] }}` |
+| **ID Nhóm** | ID của nhóm | `{{ $json["data"]["data"]["idTo"] }}` |
+| **ID Người Dùng** | ID thành viên, phân cách bằng dấu phẩy | `{{ $json["data"]["data"]["uidFrom"] }}` |
 
 ### Tạo Ghi Chú
 Tạo ghi chú trong nhóm (có thể ghim).
 
 | Trường | Mô tả | Gợi ý giá trị n8n |
 |--------|-------|-------------------|
-| **ID Nhóm** | ID của nhóm | `{{ $json["data"]["idTo"] }}` |
+| **ID Nhóm** | ID của nhóm | `{{ $json["data"]["data"]["idTo"] }}` |
 | **Nội Dung** | Nội dung ghi chú | |
 | **Ghim** | Ghim ghi chú hay không | |
 
@@ -88,7 +88,7 @@ Lấy lịch sử tin nhắn của nhóm.
 
 | Trường | Mô tả | Gợi ý giá trị n8n |
 |--------|-------|-------------------|
-| **ID Nhóm** | ID của nhóm | `{{ $json["data"]["idTo"] }}` |
+| **ID Nhóm** | ID của nhóm | `{{ $json["data"]["data"]["idTo"] }}` |
 | **Số Lượng** | Số tin nhắn cần lấy (mặc định: 50) | |
 
 ### Nâng Cấp Nhóm Thành Cộng Đồng
@@ -96,7 +96,7 @@ Nâng cấp nhóm thành cộng đồng (community).
 
 | Trường | Mô tả | Gợi ý giá trị n8n |
 |--------|-------|-------------------|
-| **ID Nhóm** | ID của nhóm cần nâng cấp | `{{ $json["data"]["idTo"] }}` |
+| **ID Nhóm** | ID của nhóm cần nâng cấp | `{{ $json["data"]["data"]["idTo"] }}` |
 
 ## Xử Lý Lỗi
 

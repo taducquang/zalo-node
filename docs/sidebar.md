@@ -14,3 +14,4 @@
   * [Zalo Poll Node](nodes/zalo-poll.md)
   * [Zalo Tag Node](nodes/zalo-tag.md)
   * [Zalo Sticker Node](nodes/zalo-sticker.md)
+  * [Zalo Message History](nodes/zalo-message-history.md)

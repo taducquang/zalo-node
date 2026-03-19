@@ -91,6 +91,13 @@ export class ZaloMessageTrigger implements INodeType {
 				required: true,
 				description: 'Cho phép lắng nghe tin nhắn của chính mình tự gửi',
 			},
+			{
+				displayName: 'Only When Mentioned',
+				name: 'onlyMentioned',
+				type: 'boolean',
+				default: false,
+				description: 'Chỉ nhận tin nhắn nhóm khi tài khoản Zalo được mention (@). Chỉ áp dụng cho Group Messages',
+			},
 		],
 	};
 
@@ -130,14 +137,28 @@ export class ZaloMessageTrigger implements INodeType {
 					}
                     const webhookUrl = this.getNodeWebhookUrl('default') as string;
 					const eventTypes = this.getNodeParameter('eventTypes', 0) as string[];
+					const onlyMentioned = this.getNodeParameter('onlyMentioned', 0) as boolean;
+					const ownId = api.getOwnId();
 
 					// Message events
 					api.listener.on('message', async (message: any) => {
-						const isUserMessage = !message.isGroup;
-						const isGroupMessage = message.isGroup;
+						const isGroupMessage = message.type === 1;
+						const isUserMessage = message.type === 0;
 
-						if ((isUserMessage && eventTypes.includes('message_user')) ||
-							(isGroupMessage && eventTypes.includes('message_group'))) {
+						if (isGroupMessage && eventTypes.includes('message_group')) {
+							// If onlyMentioned is on, skip group messages where bot is not mentioned
+							if (onlyMentioned) {
+								const mentions = message.data?.mentions;
+								const isMentioned = Array.isArray(mentions) && mentions.some((m: any) => m.uid === ownId);
+								if (!isMentioned) return;
+							}
+							this.helpers.httpRequest({
+								method: 'POST',
+								url: webhookUrl,
+								body: { eventName: 'message', data: message },
+								headers: { 'Content-Type': 'application/json' },
+							});
+						} else if (isUserMessage && eventTypes.includes('message_user')) {
 							this.helpers.httpRequest({
 								method: 'POST',
 								url: webhookUrl,

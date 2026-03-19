@@ -9,7 +9,7 @@ Node **Zalo Send Typing Event** cho phép gửi sự kiện "đang nhập" (typi
 | Trường | Mô tả | Gợi ý giá trị n8n |
 |--------|-------|-------------------|
 | **Thread ID** | ID của cuộc trò chuyện (user ID hoặc group ID) | `{{ $json["data"]["threadId"] }}` |
-| **Thread Type** | Loại cuộc trò chuyện: `0` = User, `1` = Group | `{{ $json["data"]["isGroup"] ? 1 : 0 }}` |
+| **Thread Type** | Loại cuộc trò chuyện: `0` = User, `1` = Group | `{{ $json["data"]["type"] }}` |
 
 ## Ví dụ sử dụng
 
@@ -31,7 +31,7 @@ Kết hợp với **Zalo Message Trigger** để hiển thị trạng thái "đa
 Sử dụng expression để lấy giá trị tự động từ trigger:
 
 - **Thread ID**: `{{ $json["data"]["threadId"] }}`
-- **Thread Type**: `{{ $json["data"]["isGroup"] ? 1 : 0 }}`
+- **Thread Type**: `{{ $json["data"]["type"] }}`
 
 ## Kết quả trả về
 
@@ -53,7 +53,7 @@ Node giữ nguyên toàn bộ dữ liệu đầu vào (từ trigger hoặc node 
 }
 ```
 
-Dữ liệu gốc từ trigger được giữ nguyên, nên các node phía sau (ví dụ **Zalo Send Message**) vẫn truy cập được `{{ $json["data"]["uidFrom"] }}`, `{{ $json["data"]["content"] }}`, v.v.
+Dữ liệu gốc từ trigger được giữ nguyên, nên các node phía sau (ví dụ **Zalo Send Message**) vẫn truy cập được `{{ $json["data"]["data"]["uidFrom"] }}`, `{{ $json["data"]["data"]["content"] }}`, v.v.
 
 ## Lưu ý
 

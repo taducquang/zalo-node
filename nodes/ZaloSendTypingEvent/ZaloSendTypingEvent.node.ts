@@ -46,7 +46,7 @@ export class ZaloSendTypingEvent implements INodeType {
 				type: 'number',
 				default: 0,
 				required: true,
-				description: 'Loại cuộc trò chuyện: 0 = User (cá nhân), 1 = Group (nhóm). Gợi ý: {{ $json["data"]["isGroup"] ? 1 : 0 }}',
+				description: 'Loại cuộc trò chuyện: 0 = User (cá nhân), 1 = Group (nhóm). Gợi ý: {{ $json["data"]["type"] }}',
 			},
 		],
 	};

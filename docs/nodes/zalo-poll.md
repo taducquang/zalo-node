@@ -9,7 +9,7 @@ Tạo một bình chọn mới trong nhóm.
 
 | Trường | Mô tả | Gợi ý giá trị n8n |
 |--------|-------|-------------------|
-| **Group ID** | ID của nhóm | `{{ $json["data"]["idTo"] }}` |
+| **Group ID** | ID của nhóm | `{{ $json["data"]["data"]["idTo"] }}` |
 | **Question** | Câu hỏi bình chọn | |
 | **Options** | Các lựa chọn (danh sách hoặc text phân cách bằng dấu phẩy) | |
 | **Expired Time** | Thời gian hết hạn (tùy chọn) | |
@@ -37,7 +37,7 @@ Khóa (đóng) một bình chọn.
 
 ### Tạo bình chọn từ trigger nhóm
 ```
-Group ID: {{ $json["data"]["idTo"] }}
+Group ID: {{ $json["data"]["data"]["idTo"] }}
 Question: Bạn thích ăn gì?
 Options: Phở, Bún, Cơm
 Allow Multi Choices: true

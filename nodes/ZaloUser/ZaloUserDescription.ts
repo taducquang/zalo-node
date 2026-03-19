@@ -134,7 +134,7 @@ export const zaloUserFields: INodeProperties[] = [
 			},
 		},
 		default: 0,
-		description: 'Loại cuộc trò chuyện: 0 = User (cá nhân), 1 = Group (nhóm). Gợi ý: {{ $json["data"]["isGroup"] ? 1 : 0 }}',
+		description: 'Loại cuộc trò chuyện: 0 = User (cá nhân), 1 = Group (nhóm). Gợi ý: {{ $json["data"]["type"] }}',
 	},
 	{
 		displayName: 'Message ID',
@@ -148,7 +148,7 @@ export const zaloUserFields: INodeProperties[] = [
 			},
 		},
 		default: '',
-		description: 'ID của tin nhắn cần thu hồi. Gợi ý: {{ $json["data"]["msgId"] }}',
+		description: 'ID của tin nhắn cần thu hồi. Gợi ý: {{ $json["data"]["data"]["msgId"] }}',
 	},
 	{
 		displayName: 'Client Message ID',
@@ -162,7 +162,7 @@ export const zaloUserFields: INodeProperties[] = [
 			},
 		},
 		default: '',
-		description: 'Client message ID. Gợi ý: {{ $json["data"]["cliMsgId"] }}',
+		description: 'Client message ID. Gợi ý: {{ $json["data"]["data"]["cliMsgId"] }}',
 	},
 		// Change alias name
 	{
@@ -177,7 +177,7 @@ export const zaloUserFields: INodeProperties[] = [
 			},
 		},
 		default: '',
-		description: 'ID của người dùng cần đổi tên gợi nhớ. Gợi ý: {{ $json["data"]["uidFrom"] }}',
+		description: 'ID của người dùng cần đổi tên gợi nhớ. Gợi ý: {{ $json["data"]["data"]["uidFrom"] }}',
 	},
 	{
 		displayName: 'Alias Name',
@@ -205,7 +205,7 @@ export const zaloUserFields: INodeProperties[] = [
 			},
 		},
 		default: '',
-		description: 'ID của người dùng cần chấp nhận lời mời kết bạn. Gợi ý: {{ $json["data"]["uidFrom"] }}',
+		description: 'ID của người dùng cần chấp nhận lời mời kết bạn. Gợi ý: {{ $json["data"]["data"]["uidFrom"] }}',
 	},
 
 	// Send Friend Request
@@ -221,7 +221,7 @@ export const zaloUserFields: INodeProperties[] = [
 			},
 		},
 		default: '',
-		description: 'ID của người dùng cần gửi lời mời kết bạn. Gợi ý: {{ $json["data"]["uidFrom"] }}',
+		description: 'ID của người dùng cần gửi lời mời kết bạn. Gợi ý: {{ $json["data"]["data"]["uidFrom"] }}',
 	},
 	{
 		displayName: 'Message',
@@ -251,7 +251,7 @@ export const zaloUserFields: INodeProperties[] = [
 			},
 		},
 		default: '',
-		description: 'ID của người dùng cần chặn. Gợi ý: {{ $json["data"]["uidFrom"] }}',
+		description: 'ID của người dùng cần chặn. Gợi ý: {{ $json["data"]["data"]["uidFrom"] }}',
 	},
 
 	// Unblock User
@@ -267,7 +267,7 @@ export const zaloUserFields: INodeProperties[] = [
 			},
 		},
 		default: '',
-		description: 'ID của người dùng cần bỏ chặn. Gợi ý: {{ $json["data"]["uidFrom"] }}',
+		description: 'ID của người dùng cần bỏ chặn. Gợi ý: {{ $json["data"]["data"]["uidFrom"] }}',
 	},
 
 	// // Change Account Avatar
@@ -385,7 +385,7 @@ export const zaloUserFields: INodeProperties[] = [
 			},
 		},
 		default: '',
-		description: 'ID của người dùng cần lấy thông tin. Gợi ý: {{ $json["data"]["uidFrom"] }}',
+		description: 'ID của người dùng cần lấy thông tin. Gợi ý: {{ $json["data"]["data"]["uidFrom"] }}',
 	},
 
 	// Get All Friends

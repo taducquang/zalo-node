@@ -74,6 +74,7 @@ Events:
 - **Typing (đang gõ)** *(NEW)*
 - **Reaction (biểu cảm)** *(NEW)*
 - **Group Events (sự kiện nhóm)** *(NEW)*
+- **Only When Mentioned: lọc tin nhắn nhóm chỉ khi được mention** *(NEW)*
 - Tự động kết nối lại khi mất kết nối (WebSocket auto-reconnect)
 
 ### 6. Zalo Friend Trigger
@@ -99,6 +100,27 @@ Node tìm kiếm và quản lý sticker.
 Operations:
 - **searchSticker: Tìm kiếm sticker theo từ khóa**
 - **getStickerCategoryDetail: Lấy chi tiết danh mục sticker**
+
+### 10. Zalo Send Typing Event
+Node gửi sự kiện "đang nhập" (typing indicator).
+
+### 11. Zalo Message History *(NEW)*
+Node lấy lịch sử tin nhắn nhóm.
+Features:
+- **Lấy N tin nhắn gần nhất theo limit**
+- **Lấy tất cả tin nhắn (limit = 0)**
+- Giữ nguyên dữ liệu đầu vào, thêm field messageHistory
+
+## Changelog v0.6.9
+
+### New Features
+- Thêm node **Zalo Message History** — lấy lịch sử tin nhắn nhóm với tùy chọn limit hoặc lấy tất cả
+- Thêm tùy chọn **Only When Mentioned** cho Zalo Message Trigger — chỉ nhận tin nhắn nhóm khi bot được mention (@)
+- Thêm gợi ý expression n8n ({{ $json["data"]["type"] }}, {{ $json["data"]["data"]["uidFrom"] }}, v.v.) trong mô tả các field
+
+### Bug Fixes
+- Sửa lỗi phân loại tin nhắn user/group sai trong trigger (`message.isGroup` → `message.type`)
+- Sửa toàn bộ expression hints sai (`data.isGroup`, `data.uidFrom` → đúng `data.type`, `data.data.uidFrom`)
 
 ## Changelog v0.6.0
 

@@ -7,7 +7,7 @@ Node Zalo Send Message cho phép bạn gửi tin nhắn đến người dùng ho
 | Trường | Mô tả | Gợi ý giá trị n8n |
 |--------|-------|-------------------|
 | **Thread ID** | ID của người nhận hoặc nhóm | `{{ $json["data"]["threadId"] }}` |
-| **Type** | Loại tin nhắn: `0` = User, `1` = Group | `{{ $json["data"]["isGroup"] ? 1 : 0 }}` |
+| **Type** | Loại tin nhắn: `0` = User, `1` = Group | `{{ $json["data"]["type"] }}` |
 | **Message** | Nội dung tin nhắn cần gửi | |
 | **Urgency** | Mức độ khẩn cấp: `0` = Default, `1` = Important, `2` = Urgent | |
 
@@ -16,9 +16,9 @@ Trích dẫn tin nhắn:
 
 | Trường | Mô tả | Gợi ý giá trị n8n |
 |--------|-------|-------------------|
-| **Message ID** | ID của tin nhắn cần trích dẫn | `{{ $json["data"]["msgId"] }}` |
-| **Sender ID** | ID của người gửi tin nhắn trích dẫn | `{{ $json["data"]["uidFrom"] }}` |
-| **Content** | Nội dung tin nhắn trích dẫn | `{{ $json["data"]["content"] }}` |
+| **Message ID** | ID của tin nhắn cần trích dẫn | `{{ $json["data"]["data"]["msgId"] }}` |
+| **Sender ID** | ID của người gửi tin nhắn trích dẫn | `{{ $json["data"]["data"]["uidFrom"] }}` |
+| **Content** | Nội dung tin nhắn trích dẫn | `{{ $json["data"]["data"]["content"] }}` |
 
 ### Mentions
 Mention người dùng trong tin nhắn:
@@ -46,14 +46,14 @@ Mention người dùng trong tin nhắn:
 
 ```
 Thread ID: {{ $json["data"]["threadId"] }}
-Type: {{ $json["data"]["isGroup"] ? 1 : 0 }}
+Type: {{ $json["data"]["type"] }}
 Message: Xin chào! Cảm ơn bạn đã nhắn tin.
 ```
 
 ### Gửi tin nhắn với đính kèm
 ```
 Thread ID: {{ $json["data"]["threadId"] }}
-Type: {{ $json["data"]["isGroup"] ? 1 : 0 }}
+Type: {{ $json["data"]["type"] }}
 Message: Đây là file báo cáo
 Attachments: https://example.com/file1.pdf, https://example.com/file2.pdf
 ```
