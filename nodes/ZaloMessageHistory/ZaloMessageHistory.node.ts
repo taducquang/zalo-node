@@ -15,8 +15,8 @@ export class ZaloMessageHistory implements INodeType {
 		icon: 'file:../shared/zalo.svg',
 		group: ['Zalo'],
 		version: 1,
-		subtitle: 'Lấy lịch sử tin nhắn nhóm',
-		description: 'Lấy lịch sử tin nhắn của nhóm Zalo (chỉ hỗ trợ nhóm)',
+		subtitle: '={{ $parameter["threadType"] === 1 ? "Group" : "User" }}',
+		description: 'Lấy lịch sử tin nhắn của cuộc trò chuyện Zalo (hỗ trợ cả user và group)',
 		defaults: {
 			name: 'Zalo Message History',
 		},
@@ -33,21 +33,57 @@ export class ZaloMessageHistory implements INodeType {
 		],
 		properties: [
 			{
-				displayName: 'Group ID',
-				name: 'groupId',
+				displayName: 'Thread Type',
+				name: 'threadType',
+				type: 'options',
+				options: [
+					{
+						name: 'Group',
+						value: 1,
+						description: 'Lấy lịch sử tin nhắn nhóm (REST API)',
+					},
+					{
+						name: 'User',
+						value: 0,
+						description: 'Lấy lịch sử tin nhắn cá nhân (WebSocket)',
+					},
+				],
+				default: 1,
+				required: true,
+				description: 'Loại cuộc trò chuyện cần lấy lịch sử',
+			},
+			{
+				displayName: 'Thread ID',
+				name: 'threadId',
 				type: 'string',
 				default: '',
 				required: true,
-				description: 'ID của nhóm cần lấy lịch sử tin nhắn. Gợi ý: {{ $json["data"]["data"]["idTo"] }}',
+				description: 'ID của cuộc trò chuyện (group ID hoặc user ID). Gợi ý: {{ $json["data"]["threadId"] }}',
 			},
 			{
 				displayName: 'Limit',
 				name: 'count',
 				type: 'number',
 				default: 50,
-				description: 'Số lượng tin nhắn gần nhất cần lấy. Đặt 0 để lấy tất cả tin nhắn có sẵn',
+				description: 'Số lượng tin nhắn gần nhất cần lấy. Với Group, đặt 0 để lấy tất cả',
 				typeOptions: {
 					minValue: 0,
+				},
+			},
+			{
+				displayName: 'Timeout (giây)',
+				name: 'timeout',
+				type: 'number',
+				default: 15,
+				description: 'Thời gian chờ tối đa để nhận lịch sử tin nhắn (chỉ áp dụng cho User)',
+				displayOptions: {
+					show: {
+						threadType: [0],
+					},
+				},
+				typeOptions: {
+					minValue: 5,
+					maxValue: 60,
 				},
 			},
 		],
@@ -77,48 +113,94 @@ export class ZaloMessageHistory implements INodeType {
 
 		for (let i = 0; i < items.length; i++) {
 			try {
-				const groupId = this.getNodeParameter('groupId', i) as string;
+				const threadType = this.getNodeParameter('threadType', i) as number;
+				const threadId = this.getNodeParameter('threadId', i) as string;
 				const count = this.getNodeParameter('count', i) as number;
 
-				if (count === 0) {
-					// Fetch all available messages by paginating
-					const allMessages: any[] = [];
-					let hasMore = true;
-					let fetchCount = 100;
+				if (threadType === 1) {
+					// Group: use REST API getGroupChatHistory
+					if (count === 0) {
+						const allMessages: any[] = [];
+						let hasMore = true;
+						let fetchCount = 100;
 
-					while (hasMore) {
-						const result = await api.getGroupChatHistory(groupId, fetchCount);
-						if (result && result.groupMsgs && result.groupMsgs.length > 0) {
-							allMessages.push(...result.groupMsgs);
-							hasMore = result.more === 1;
-							fetchCount = fetchCount + 100;
-						} else {
-							hasMore = false;
+						while (hasMore) {
+							const result = await api.getGroupChatHistory(threadId, fetchCount);
+							if (result && result.groupMsgs && result.groupMsgs.length > 0) {
+								allMessages.push(...result.groupMsgs);
+								hasMore = result.more === 1;
+								fetchCount = fetchCount + 100;
+							} else {
+								hasMore = false;
+							}
 						}
-					}
 
-					returnData.push({
-						json: {
-							...items[i].json,
-							messageHistory: {
-								groupId,
-								totalMessages: allMessages.length,
-								messages: allMessages,
+						returnData.push({
+							json: {
+								...items[i].json,
+								messageHistory: {
+									threadId,
+									threadType: 'group',
+									totalMessages: allMessages.length,
+									messages: allMessages,
+								},
 							},
-						},
-						pairedItem: { item: i },
-					});
+							pairedItem: { item: i },
+						});
+					} else {
+						const result = await api.getGroupChatHistory(threadId, count);
+
+						returnData.push({
+							json: {
+								...items[i].json,
+								messageHistory: {
+									threadId,
+									threadType: 'group',
+									totalMessages: result?.groupMsgs?.length ?? 0,
+									messages: result?.groupMsgs ?? [],
+									hasMore: result?.more === 1,
+								},
+							},
+							pairedItem: { item: i },
+						});
+					}
 				} else {
-					const result = await api.getGroupChatHistory(groupId, count);
+					// User: use WebSocket requestOldMessages + filter by threadId
+					const timeout = this.getNodeParameter('timeout', i, 15) as number;
+
+					const messages = await new Promise<any[]>((resolve) => {
+						const timer = setTimeout(() => {
+							resolve([]);
+						}, timeout * 1000);
+
+						api.listener.on('old_messages', (msgs: any[], type: any) => {
+							clearTimeout(timer);
+							// Filter messages for the specific thread
+							const filtered = msgs.filter((msg: any) => {
+								return msg.threadId === threadId ||
+									msg.data?.uidFrom === threadId ||
+									msg.data?.idTo === threadId;
+							});
+							resolve(filtered);
+						});
+
+						api.listener.start();
+						api.listener.requestOldMessages(0); // ThreadType.User = 0
+					});
+
+					// Stop listener after getting messages
+					try { api.listener.stop(); } catch (_) {}
+
+					const limitedMessages = count > 0 ? messages.slice(-count) : messages;
 
 					returnData.push({
 						json: {
 							...items[i].json,
 							messageHistory: {
-								groupId,
-								totalMessages: result?.groupMsgs?.length ?? 0,
-								messages: result?.groupMsgs ?? [],
-								hasMore: result?.more === 1,
+								threadId,
+								threadType: 'user',
+								totalMessages: limitedMessages.length,
+								messages: limitedMessages,
 							},
 						},
 						pairedItem: { item: i },

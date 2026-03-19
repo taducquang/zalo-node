@@ -105,16 +105,16 @@ Operations:
 Node gửi sự kiện "đang nhập" (typing indicator).
 
 ### 11. Zalo Message History *(NEW)*
-Node lấy lịch sử tin nhắn nhóm.
+Node lấy lịch sử tin nhắn cuộc trò chuyện (cả user và group).
 Features:
-- **Lấy N tin nhắn gần nhất theo limit**
-- **Lấy tất cả tin nhắn (limit = 0)**
+- **Group: lấy N tin nhắn gần nhất hoặc tất cả (limit = 0) qua REST API**
+- **User: lấy tin nhắn gần nhất qua WebSocket với timeout cấu hình**
 - Giữ nguyên dữ liệu đầu vào, thêm field messageHistory
 
 ## Changelog v0.6.9
 
 ### New Features
-- Thêm node **Zalo Message History** — lấy lịch sử tin nhắn nhóm với tùy chọn limit hoặc lấy tất cả
+- Thêm node **Zalo Message History** — lấy lịch sử tin nhắn cả user (WebSocket) và group (REST API) với tùy chọn limit
 - Thêm tùy chọn **Only When Mentioned** cho Zalo Message Trigger — chỉ nhận tin nhắn nhóm khi bot được mention (@)
 - Thêm gợi ý expression n8n ({{ $json["data"]["type"] }}, {{ $json["data"]["data"]["uidFrom"] }}, v.v.) trong mô tả các field
 
