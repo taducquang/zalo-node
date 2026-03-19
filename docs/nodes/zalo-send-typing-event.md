@@ -35,13 +35,25 @@ Sử dụng expression để lấy Thread ID từ trigger:
 
 ## Kết quả trả về
 
+Node giữ nguyên toàn bộ dữ liệu đầu vào (từ trigger hoặc node trước đó) và thêm field `typingEvent`:
+
 ```json
 {
-  "success": true,
-  "threadId": "1234567890",
-  "threadType": "User"
+  "data": {
+    "uidFrom": "1234567890",
+    "idTo": "1234567890",
+    "msgId": "...",
+    "content": "Xin chào"
+  },
+  "typingEvent": {
+    "success": true,
+    "threadId": "1234567890",
+    "threadType": "User"
+  }
 }
 ```
+
+Dữ liệu gốc từ trigger được giữ nguyên, nên các node phía sau (ví dụ **Zalo Send Message**) vẫn truy cập được `{{ $json.data.uidFrom }}`, `{{ $json.data.content }}`, v.v.
 
 ## Lưu ý
 
