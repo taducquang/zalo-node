@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-zalo-node",
-	"version": "0.6.4",
+	"version": "0.6.5",
 	"description": "Các node hỗ trợ Zalo cho n8n",
 	"keywords": [
 		"n8n-community-node-package",
@@ -48,7 +48,8 @@
 			"dist/nodes/ZaloFriendTrigger/ZaloFriendTrigger.node.js",
 			"dist/nodes/ZaloPoll/ZaloPoll.node.js",
 			"dist/nodes/ZaloTag/ZaloTag.node.js",
-			"dist/nodes/ZaloSticker/ZaloSticker.node.js"
+			"dist/nodes/ZaloSticker/ZaloSticker.node.js",
+			"dist/nodes/ZaloSendTypingEvent/ZaloSendTypingEvent.node.js"
 		]
 	},
 	"devDependencies": {

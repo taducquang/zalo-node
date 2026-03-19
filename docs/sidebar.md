@@ -6,6 +6,7 @@
 * Nodes
   * [Zalo Login Via QR](nodes/zalo-login-qr.md)
   * [Zalo Send Message](nodes/zalo-send-message.md)
+  * [Zalo Send Typing Event](nodes/zalo-send-typing-event.md)
   * [Zalo Message Trigger](nodes/zalo-message-trigger.md)
   * [Zalo Friend Trigger](nodes/zalo-friend-trigger.md)
   * [Zalo User Node](nodes/zalo-user.md)
