@@ -6,7 +6,7 @@ Node Zalo Message History cho phép lấy lịch sử tin nhắn của cuộc tr
 
 | Trường | Mô tả | Gợi ý giá trị n8n |
 |--------|-------|-------------------|
-| **Thread Type** | `Group` hoặc `User` | |
+| **Thread Type** | `0` = User (cá nhân), `1` = Group (nhóm) | `{{ $json["data"]["type"] }}` |
 | **Thread ID** | ID cuộc trò chuyện (group ID hoặc user ID) | `{{ $json["data"]["threadId"] }}` |
 | **Limit** | Số tin nhắn gần nhất cần lấy. Với Group, đặt `0` để lấy tất cả | |
 | **Timeout** | Thời gian chờ tối đa (chỉ áp dụng cho User, mặc định 15 giây) | |

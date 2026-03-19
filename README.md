@@ -111,6 +111,11 @@ Features:
 - **User: lấy tin nhắn gần nhất qua WebSocket với timeout cấu hình**
 - Giữ nguyên dữ liệu đầu vào, thêm field messageHistory
 
+## Changelog v0.6.11
+
+### Improvements
+- Thread Type trong Zalo Message History đổi từ dropdown sang number input, hỗ trợ expression `{{ $json["data"]["type"] }}`
+
 ## Changelog v0.6.9
 
 ### New Features
