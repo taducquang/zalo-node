@@ -7,7 +7,7 @@ Node dành riêng cho n8n này được thiết kế hoạt động hoàn toàn 
 Node này mô phỏng trình duyệt để tương tác trực tiếp với Zalo Web, cho phép tự động hóa liền mạch ngay trong n8n. Đây là dự án mã nguồn mở, mở rộng cơ hội cho cộng đồng cùng đóng góp ý kiến và phát triển thêm các tính năng mới, nhằm xây dựng hệ thống tự động hóa Zalo tiên tiến, hiệu quả và an toàn hơn.
 
 ## Hướng dẫn cài đặt node này:
-**Community Nodes*
+**Community Nodes**
 Đối với người dùng n8n v0.187+, bạn có thể cài đặt node này trực tiếp từ bảng Community Nodes trong trình soạn thảo n8n.
 
 1.  Mở trình soạn thảo n8n của bạn.
