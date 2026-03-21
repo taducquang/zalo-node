@@ -8,6 +8,7 @@ Node này mô phỏng trình duyệt để tương tác trực tiếp với Zalo
 
 ## Hướng dẫn cài đặt node này:
 **Community Nodes**
+
 Đối với người dùng n8n v0.187+, bạn có thể cài đặt node này trực tiếp từ bảng Community Nodes trong trình soạn thảo n8n.
 
 1.  Mở trình soạn thảo n8n của bạn.
